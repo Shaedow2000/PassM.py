@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
 
 def main() -> None:
-    pass
+    menu: str = '\tg: generate passwd | c: clear screen | q: quit or [ Ctrl + C ]'
+
+    print( menu )
