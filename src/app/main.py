@@ -8,7 +8,7 @@ def clear() -> None:
     return
 
 def quit() -> None:
-    sys.exit( '\n|=> Exiting...' )
+    sys.exit( '\n|=> Quiting program...' )
 
 def main() -> None:
     menu: str = '\tg: generate passwd | c: clear screen | q: quit or [ Ctrl + C ]'
