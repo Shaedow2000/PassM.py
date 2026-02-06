@@ -7,6 +7,9 @@ def clear() -> None:
 
     return
 
+def quit() -> None:
+    sys.exit( '\n|=> Exiting...' )
+
 def main() -> None:
     menu: str = '\tg: generate passwd | c: clear screen | q: quit or [ Ctrl + C ]'
     
@@ -16,4 +19,7 @@ def main() -> None:
         command: str = input( '>=> ' ).replace( ' ', '' ).lower()
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        quit()
