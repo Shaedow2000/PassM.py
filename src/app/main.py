@@ -14,6 +14,8 @@ def main() -> None:
             clear()
         elif command == 'q':
             quit()
+        elif command == '':
+            pass
         else:
             print( f'!> Command not found: [ { command } ].' )
 
