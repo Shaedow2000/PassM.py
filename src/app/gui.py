@@ -39,8 +39,11 @@ def gui() -> None:
     passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), passwd_manager_menu.pack() ) )
     passwd_manager_button.pack()
 
-    # Password Generation menu 
-    passwd_lenght_error: Label = Label( passwd_gen_menu, text='Lenght should be a number.', font=( 'Impact', 14, 'bold italic underline' ), fg='red' ) 
+    # Password Generation menu
+    passwd: StringVar = StringVar( value='' )
+
+    passwd_lenght_error: Label = Label( passwd_gen_menu, text='Lenght should be a number.', font=( 'Impact', 14, 'bold italic underline' ), fg='red' )
+
     lenght_label: Label = Label( passwd_gen_menu, text='Password Lenght [ default=16 ]:', font=( 'Imapct', 12 ) )
     passwd_lenght: Entry = Entry( passwd_gen_menu, width=30, font=( 'Impact', 14 ) )
 
@@ -49,13 +52,17 @@ def gui() -> None:
     use_chars: ttk.Combobox = ttk.Combobox( passwd_gen_menu, values=[ 'All chars', 'Letters only', 'Digits only', 'Punctuation only' ] )
     use_chars.set( 'Select chars' )
 
-    generate: Button = Button( passwd_gen_menu, text='Generate password', font=( 'Impact', 14 ), command=lambda: ( print( gen_passwd( int( passwd_lenght.get().replace( ' ', '' ) ) if passwd_lenght.get().replace( ' ', '' ) != '' else 16, use_chars.get() ) ) if is_int( passwd_lenght.get().replace( ' ', '' ) ) or passwd_lenght.get().replace( ' ', '' ) == '' else passwd_lenght_error.pack() ) )
+    passwd_label: Label = Label( passwd_gen_menu, textvariable=passwd, font=( 'Impact', 20, 'bold' ) )
+
+    generate: Button = Button( passwd_gen_menu, text='Generate password', font=( 'Impact', 14 ), command=lambda: ( passwd.set( value=gen_passwd( int( passwd_lenght.get().replace( ' ', '' ) ) if passwd_lenght.get().replace( ' ', '' ) != '' else 16, use_chars.get() ) ) if is_int( passwd_lenght.get().replace( ' ', '' ) ) or passwd_lenght.get().replace( ' ', '' ) == '' else passwd_lenght_error.pack() ) )
     
     lenght_label.pack()
     passwd_lenght.pack( pady=10 )
     use_label.pack()
     use_chars.pack( pady=10 )
     generate.pack( pady=15 )
+
+    passwd_label.pack( pady=25 )
 
     # Start gui
     print( '=> Opened GUI...' )
