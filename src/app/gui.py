@@ -1,8 +1,12 @@
 from tkinter import *
 import os
 
+window: Tk = Tk()
+home_menu: Frame = Frame( window )
+passwd_gen_menu: Frame = Frame( window )
+passwd_manager_menu: Frame = Frame( window )
+
 def gui() -> None:
-    window: Tk = Tk()
     window.geometry( '950x800' )
     window.title( 'PassM' )
 
@@ -11,6 +15,8 @@ def gui() -> None:
 
     window.iconphoto( True, icon )
 
-    window.mainloop()
+    # Main menu
 
-gui()
+    print( '=> Opened GUI...' )
+
+    window.mainloop()
