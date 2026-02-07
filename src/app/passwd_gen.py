@@ -1,9 +1,7 @@
 import string, random
 
-chars: list[ str ] = [ *string.ascii_letters, *string.digits, *string.punctuation ]
-
 def gen_passwd( lenght: int, use_only: str ) -> str:
-    global chars
+    chars: list[ str ] = []
 
     if use_only == '1':
         chars = [ *string.ascii_letters ]
@@ -12,7 +10,7 @@ def gen_passwd( lenght: int, use_only: str ) -> str:
     elif use_only == '3':
         chars = [ *string.punctuation ]
     else:
-        chars = chars
+        chars = [ *string.ascii_letters, *string.digits, *string.punctuation ]
 
     passwd: str = ''
     index: int = random.randint( 0, len( chars ) - 1 )
