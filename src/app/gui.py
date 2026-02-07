@@ -38,10 +38,10 @@ def gui() -> None:
 
     # buttons
     passwd_gen_button: Button = Button( buttons_side, text='Password Generation', font=( 'Impact', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), passwd_gen_menu.pack() ) )
-    passwd_gen_button.pack()
+    passwd_gen_button.pack( pady=5 )
 
     passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), passwd_manager_menu.pack() ) )
-    passwd_manager_button.pack()
+    passwd_manager_button.pack( pady=5 )
 
     # Password Generation menu
     passwd: StringVar = StringVar( value='' )
