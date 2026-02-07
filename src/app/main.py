@@ -10,9 +10,9 @@ def main() -> None:
         command: str = input( '>=> ' ).replace( ' ', '' ).lower()
 
         if command == 'g':
-            lenght: str = input( '--> Enter lenght of the password [ Enter => 16 ]: ' )
+            lenght: str = input( '--> Enter lenght of the password [ Enter => 16 ]: ' ).replace( ' ', '' )
             print( '- password contains: [ press any key ]> All chars | 1> letters only | 2> digits only | 3> punctuation only.' )
-            use_only: str = input( '--> ' )
+            use_only: str = input( '--> ' ).replace( ' ', '' )
 
             if is_int( lenght ) and lenght == '':
                 print( gen_passwd( int( lenght ) if lenght != '' else 16, use_only ) )
