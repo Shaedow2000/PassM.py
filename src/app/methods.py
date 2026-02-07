@@ -11,3 +11,11 @@ def clear() -> None:
 
 def quit() -> None:
     sys.exit( '\n!> Quiting program...' )
+
+def is_int( n: str ) -> bool:
+    try:
+        int( n )
+
+        return True
+    except ValueError:
+        return False
