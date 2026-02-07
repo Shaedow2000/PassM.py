@@ -11,9 +11,11 @@ def main() -> None:
 
         if command == 'g':
             lenght: str = input( '--> Enter lenght of the password: ' )
+            print( '- password contains: [ press any key ]> All chars | 1> letters only | 2> digits only | 3> punctuation only.' )
+            use_only: str = input( '--> ' )
 
             if is_int( lenght ):
-                print( gen_passwd( int( lenght ) ) )
+                print( gen_passwd( int( lenght ), use_only ) )
             else:
                 print( f'!> Value { lenght } is not a number.' )
         elif command == 'c':

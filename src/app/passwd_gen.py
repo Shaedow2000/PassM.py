@@ -5,11 +5,11 @@ chars: list[ str ] = [ *string.ascii_letters, *string.digits, *string.punctuatio
 def gen_passwd( lenght: int, use_only: str ) -> str:
     global chars
 
-    if use_only == 'letters':
+    if use_only == '1':
         chars = [ *string.ascii_letters ]
-    elif use_only == 'digits':
+    elif use_only == '2':
         chars = [ *string.digits ]
-    elif use_only == 'punctuation':
+    elif use_only == '3':
         chars = [ *string.punctuation ]
     else:
         chars = chars
