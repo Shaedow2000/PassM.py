@@ -28,7 +28,7 @@ file_path: str = os.path.join( dir, 'assets', file_name )
 def read_json() -> dict:
     if not os.path.exists( file_path ):
         with open( file_path, 'w' ) as file:
-            json.dump( { "key": "", "decKey": "", "data": "" }, file )
+            json.dump( { 'first-time': True, 'key': '', 'decKey': '', 'data': '' }, file )
 
     data: dict = {}
 
@@ -49,3 +49,6 @@ def write_passkey( key: str ) -> None:
     data[ 'key' ] = key
 
     write_json( data )
+    
+    return
+
