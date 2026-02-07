@@ -49,13 +49,13 @@ def gui() -> None:
     use_chars: ttk.Combobox = ttk.Combobox( passwd_gen_menu, values=[ 'All chars', 'Letters only', 'Digits only', 'Punctuation only' ] )
     use_chars.set( 'Select chars' )
 
-    generate: Button = Button( passwd_gen_menu, text='Generate password', font=( 'Impact', 14 ), command=lambda: ( print( gen_passwd( int( passwd_lenght.get().replace( ' ', '' ) ) , use_chars.get() ) ) if is_int( passwd_lenght.get().replace( ' ', '' ) ) else 16 if passwd_lenght.get() == '' else passwd_lenght_error.pack()) )
+    generate: Button = Button( passwd_gen_menu, text='Generate password', font=( 'Impact', 14 ), command=lambda: ( print( gen_passwd( int( passwd_lenght.get().replace( ' ', '' ) ) if passwd_lenght.get().replace( ' ', '' ) != '' else 16, use_chars.get() ) ) if is_int( passwd_lenght.get().replace( ' ', '' ) ) or passwd_lenght.get().replace( ' ', '' ) == '' else passwd_lenght_error.pack() ) )
     
     lenght_label.pack()
-    passwd_lenght.pack()
+    passwd_lenght.pack( pady=10 )
     use_label.pack()
-    use_chars.pack()
-    generate.pack()
+    use_chars.pack( pady=10 )
+    generate.pack( pady=15 )
 
     # Start gui
     print( '=> Opened GUI...' )
