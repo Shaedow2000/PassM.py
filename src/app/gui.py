@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import ttk 
-import os
+import os, pyperclip
 
 from methods import is_int
 from passwd_gen import gen_passwd
@@ -53,6 +53,7 @@ def gui() -> None:
     use_chars.set( 'Select chars' )
 
     passwd_label: Label = Label( passwd_gen_menu, textvariable=passwd, font=( 'Impact', 20, 'bold' ) )
+    copy: Button = Button( passwd_gen_menu, text='Copy', font=( 'Impact', 14 ), command=lambda: ( pyperclip.copy( passwd.get() ) ) )
 
     generate: Button = Button( passwd_gen_menu, text='Generate password', font=( 'Impact', 14 ), command=lambda: ( passwd.set( value=gen_passwd( int( passwd_lenght.get().replace( ' ', '' ) ) if passwd_lenght.get().replace( ' ', '' ) != '' else 16, use_chars.get() ) ) if is_int( passwd_lenght.get().replace( ' ', '' ) ) or passwd_lenght.get().replace( ' ', '' ) == '' else passwd_lenght_error.pack() ) )
     
@@ -63,6 +64,7 @@ def gui() -> None:
     generate.pack( pady=15 )
 
     passwd_label.pack( pady=25 )
+    copy.pack()
 
     # Start gui
     print( '=> Opened GUI...' )
