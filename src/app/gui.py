@@ -48,6 +48,14 @@ def access() -> None:
         ( passwd_manager_menu.pack(), hide_menus(), print( '-> Access granted !' ) ) if check_passkey( passkey_entry.get() ) else ( error_label.pack(), print( '-> Access denied: Incorrect pass key' ) )
     ) )
 
+    entry_label.pack()
+    passkey_entry.pack( pady=10 )
+    submit.pack()
+
+    access_menu.pack()
+
+    return
+
 
 def gui() -> None:
     window.geometry( '950x800' )
@@ -71,7 +79,7 @@ def gui() -> None:
     passwd_gen_button: Button = Button( buttons_side, text='Password Generation', font=( 'Impact', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), passwd_gen_menu.pack() ) )
     passwd_gen_button.pack( pady=5 )
 
-    passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), first_time_login() if first_time() else passwd_manager_menu.pack() ) )
+    passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), first_time_login() if first_time() else access() ) )
     passwd_manager_button.pack( pady=5 )
 
     # Password Generation menu
