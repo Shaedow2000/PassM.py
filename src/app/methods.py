@@ -46,7 +46,7 @@ def write_json( data: dict ) -> None:
 def write_passkey( key: str ) -> None:
     data: dict = read_json()
 
-    hashed_key = bcrypt.hashpw( key.encode(), bcrypt.gensalt() )
+    hashed_key: bytes = bcrypt.hashpw( key.encode(), bcrypt.gensalt() )
 
     data[ 'key' ] = hashed_key.decode()
     data[ 'first-time' ] = False
@@ -62,3 +62,9 @@ def first_time() -> bool:
         return True
     else:
         return False
+
+def check_passkey( key: str ) -> bool:
+    data: dict = read_json()
+    stored_key: bytes = data[ 'key' ].encode()
+
+    return bcrypt.checkpw( key.encode(), stored_key )
