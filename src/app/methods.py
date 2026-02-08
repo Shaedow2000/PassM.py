@@ -52,3 +52,10 @@ def write_passkey( key: str ) -> None:
     
     return
 
+def first_time() -> bool:
+    data: dict = read_json()
+
+    if data[ 'first-time' ]:
+        return True
+    else:
+        return False
