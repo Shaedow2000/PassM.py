@@ -22,7 +22,7 @@ def hide_menus() -> None:
     return
 
 def login() -> None:
-    error_label: Label = Label( login_menu, text='Passkey should contain 6 or more characters.', font=( 'Impact', 16, 'bold italic underline' ) )
+    error_label: Label = Label( login_menu, text='Passkey should contain 6 or more characters.', font=( 'Impact', 16, 'bold italic underline' ), fg='red' )
     warning_label: Label = Label( login_menu, text='This is the passkey that you will use to login every time to the password manager.\nNOTE: please keep this code with you, or you will be locked out of the password manager!' )
     passkey_entry: Entry = Entry( login_menu, width=30, font=( 'Impact', 14 ) )
     submit: Button = Button( login_menu, text='LogIn', font=( 'Impact', 14 ), command=lambda: ( write_passkey( passkey_entry.get() ) if len( passkey_entry.get() ) >= 6 else error_label.pack( pady=5 ) ) )
