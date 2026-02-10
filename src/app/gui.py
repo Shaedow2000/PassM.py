@@ -66,8 +66,6 @@ def access() -> None:
     return
 
 def accounts() -> None:
-    frames: list[ Frame ] = []
-
     data: dict = read_json()
 
     for i in range( len( data[ 'data' ] ) ):
@@ -77,11 +75,12 @@ def accounts() -> None:
         Label( frame, text=f'App: { data[ "data" ][ i ][ "app" ] }\nName: { data[ "data" ][ i ][ "name" ] }\nPassword: { data[ "data" ][ i ][ "passwd" ] }', font=( 'Impact', 14 ) ).pack()
         
         buttons_frame: Frame = Frame( frame )
-        Button( buttons_frame, text='Remove', font=( 'Impact', 12, 'bold' ), command=lambda: () ).pack( side='left' )
+        Button( buttons_frame, text='Remove', font=( 'Impact', 12, 'bold' ), command=lambda: (
+            print( f'u pressed { i }: { data[ "data" ][ i ][ "app" ] }' )
+        ) ).pack( side='left' )
+
         Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: () ).pack( side='left' )
         buttons_frame.pack( pady=5 )
-
-        frames.append( frame )
 
     return
 
