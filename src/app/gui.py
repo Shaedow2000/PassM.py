@@ -54,7 +54,7 @@ def access() -> None:
     entry_label: Label = Label( access_menu, text='Enter pass key:', font=( 'Impact', 14 ) )
     passkey_entry: Entry = Entry( access_menu, width=30, font=( 'Impact', 14 ) )
     submit: Button = Button( access_menu, text='Access', font=( 'Impact', 14 ), command=lambda: (
-        ( hide_menus(), passwd_manager_menu.pack(), print( '-> Access granted !' ) ) if check_passkey( passkey_entry.get() ) else ( error_label.pack(), print( '-> Access denied: Incorrect pass key' ) )
+        ( hide_menus(), passwd_manager_menu.pack(), print( '-> Access granted !' ), passkey_entry.delete( 0, END ) ) if check_passkey( passkey_entry.get() ) else ( error_label.pack(), print( '-> Access denied: Incorrect pass key' ) )
     ) )
 
     entry_label.pack()
