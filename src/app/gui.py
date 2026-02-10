@@ -40,7 +40,7 @@ def first_time_login() -> None:
     passkey_entry: Entry = Entry( login_menu, width=30, font=( 'Impact', 14 ) )
     submit: Button = Button( login_menu, text='LogIn', font=( 'Impact', 14 ), command=lambda: ( 
         write_passkey( passkey_entry.get() ) if len( passkey_entry.get() ) >= 6 else error_label.pack( pady=5 ),
-        ( passwd_manager_menu.pack(), hide_menus(), print( '-> Logged-in successfully !' ) ) if not first_time() else print( '-> Try again !' ) 
+        ( hide_menus(), passwd_manager_menu.pack(), print( '-> Logged-in successfully !' ) ) if not first_time() else print( '-> Try again !' )
     ) )
 
     warning_label.pack()
@@ -57,7 +57,7 @@ def access() -> None:
     entry_label: Label = Label( access_menu, text='Enter pass key:', font=( 'Impact', 14 ) )
     passkey_entry: Entry = Entry( access_menu, width=30, font=( 'Impact', 14 ) )
     submit: Button = Button( access_menu, text='Access', font=( 'Impact', 14 ), command=lambda: (
-        ( passwd_manager_menu.pack(), hide_menus(), print( '-> Access granted !' ) ) if check_passkey( passkey_entry.get() ) else ( error_label.pack(), print( '-> Access denied: Incorrect pass key' ) )
+        ( hide_menus(), passwd_manager_menu.pack(), print( '-> Access granted !' ) ) if check_passkey( passkey_entry.get() ) else ( error_label.pack(), print( '-> Access denied: Incorrect pass key' ) )
     ) )
 
     entry_label.pack()
@@ -139,6 +139,16 @@ def gui() -> None:
 
     passwd_label.pack( pady=25 )
     copy.pack()
+
+    # Password manager menu
+    top_frame: Frame = Frame( passwd_manager_menu )
+
+    Button( top_frame, text='Quit', font=( 'Impact', 12, 'bold' ), command=lambda: () ).pack( side='left' )
+    Label( top_frame, text='Password Manager:', font=( 'Imapct', 16, 'bold underline' ) ).pack( side='left' )
+
+    accounts()
+
+    top_frame.pack( pady=5 )
 
     # Start gui
     print( '=> Opened GUI...' )
