@@ -99,17 +99,17 @@ def add_account() -> None:
     name_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
     passwd_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
 
-    Button( add_account_menu, text='Add Account', font=( 'Impact', 14, 'bold' ), command=lambda: (
-        new_account( app_entry.get(), name_entry.get(), passwd_entry.get() ),
-        print( f'-> Added new { app_entry.get() } account.' )
-    ) ).pack()
-
     Label( add_account_menu, text='App name:', font=( 'Impact', 12 ) ).pack()
     app_entry.pack()
     Label( add_account_menu, text='Your name:', font=( 'Impact', 12 ) ).pack()
     name_entry.pack()
     Label( add_account_menu, text='Password:', font=( 'Imapct', 12 ) ).pack()
     passwd_entry.pack()
+
+    Button( add_account_menu, text='Add Account', font=( 'Impact', 14, 'bold' ), command=lambda: (
+        new_account( app_entry.get(), name_entry.get(), passwd_entry.get() ),
+        print( f'-> Added new { app_entry.get() } account.' )
+    ) ).pack()
 
     add_account_menu.pack()
 
