@@ -68,3 +68,18 @@ def check_passkey( key: str ) -> bool:
     stored_key: bytes = data[ 'key' ].encode()
 
     return bcrypt.checkpw( key.encode(), stored_key )
+
+def new_account( app: str, name: str, passwd: str ) -> None:
+    data: dict = read_json()
+
+    new_acc: dict = {
+        'app': app,
+        'name': name,
+        'passwd': passwd
+    }
+
+    data[ 'data' ].append( new_acc )
+
+    write_json( data )
+
+    return
