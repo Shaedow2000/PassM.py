@@ -159,7 +159,12 @@ def gui() -> None:
 
     top_frame.pack( pady=10 )
 
-    accounts()
+    data: dict = read_json()
+
+    if len( data[ 'data' ] ) == 0:
+        Label( passwd_manager_menu, text='No Data Found D:', font=( 'Impact', 15, 'bold italic' ) ).pack()
+    else:
+        accounts()
     
     # Start gui
     print( '=> Opened GUI...' )
