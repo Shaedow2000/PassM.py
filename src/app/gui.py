@@ -94,38 +94,6 @@ def accounts() -> None:
 
     return
 
-def add_account() -> None:
-    app_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
-    name_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
-    passwd_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
-
-    top_frame: Frame = Frame( add_account_menu )
-    Button( top_frame, text='Back', font=( 'Impact', 14, 'bold' ), command=lambda: (
-        hide_menus(),
-        passwd_manager_menu.pack() 
-    ) ).pack( side='left' )
-    Label( top_frame, text='Add account', font=( 'Imapct', 16, 'bold' ) ).pack()
-
-    top_frame.pack( fill='x' )
-
-    Label( add_account_menu, text='App name:', font=( 'Impact', 12 ) ).pack()
-    app_entry.pack()
-    Label( add_account_menu, text='Your name:', font=( 'Impact', 12 ) ).pack()
-    name_entry.pack()
-    Label( add_account_menu, text='Password:', font=( 'Imapct', 12 ) ).pack()
-    passwd_entry.pack()
-
-    Button( add_account_menu, text='Add Account', font=( 'Impact', 14, 'bold' ), command=lambda: (
-        new_account( app_entry.get(), name_entry.get(), passwd_entry.get() ),
-        print( f'-> Added new { app_entry.get() } account.' ),
-        empty_entries( app_entry, name_entry, passwd_entry )
-    ) ).pack()
-
-    add_account_menu.pack()
-
-    return
-
-
 def gui() -> None:
     window.geometry( '950x800' )
     window.title( 'PassM' )
@@ -183,7 +151,7 @@ def gui() -> None:
 
     Button( top_frame, text='Quit', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), access_menu.pack() ) ).pack( side='left', padx=5 )
     Label( top_frame, text='Password Manager:', font=( 'Imapct', 16, 'bold underline' ) ).pack( side='left', padx=5 )
-    Button( top_frame, text='Add', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), add_account() ) ).pack( side='left', padx=5 )
+    Button( top_frame, text='Add', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), add_account_menu.pack() ) ).pack( side='left', padx=5 )
 
     top_frame.pack( pady=10 )
 
@@ -193,7 +161,34 @@ def gui() -> None:
         Label( passwd_manager_menu, text='No Data Found D:', font=( 'Impact', 15, 'bold italic' ) ).pack()
     else:
         accounts()
-    
+   
+    # Add account menu
+    app_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
+    name_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
+    passwd_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
+
+    top_frame: Frame = Frame( add_account_menu )
+    Button( top_frame, text='Back', font=( 'Impact', 14, 'bold' ), command=lambda: (
+        hide_menus(),
+        passwd_manager_menu.pack() 
+    ) ).pack( side='left' )
+    Label( top_frame, text='Add account', font=( 'Imapct', 16, 'bold' ) ).pack()
+
+    top_frame.pack( fill='x' )
+
+    Label( add_account_menu, text='App name:', font=( 'Impact', 12 ) ).pack()
+    app_entry.pack()
+    Label( add_account_menu, text='Your name:', font=( 'Impact', 12 ) ).pack()
+    name_entry.pack()
+    Label( add_account_menu, text='Password:', font=( 'Imapct', 12 ) ).pack()
+    passwd_entry.pack()
+
+    Button( add_account_menu, text='Add Account', font=( 'Impact', 14, 'bold' ), command=lambda: (
+        new_account( app_entry.get(), name_entry.get(), passwd_entry.get() ),
+        print( f'-> Added new { app_entry.get() } account.' ),
+        empty_entries( app_entry, name_entry, passwd_entry )
+    ) ).pack()
+
     # Start gui
     print( '=> Opened GUI...' )
 
