@@ -1,21 +1,9 @@
 #!/usr/bin/env python3
 
-import os, sys
-
-menu: str = '\tg: generate passwd | c: clear screen | q: quit or [ Ctrl + C ]'
-
-def clear() -> None:
-    os.system( 'cls' if os.name == 'nt' else 'clear' )
-
-    print( menu )
-
-    return
-
-def quit() -> None:
-    sys.exit( '\n!> Quiting program...' )
+from methods import clear, quit
 
 def main() -> None:
-    print( menu )
+    clear()
 
     while True:
         command: str = input( '>=> ' ).replace( ' ', '' ).lower()
