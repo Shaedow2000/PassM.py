@@ -67,6 +67,18 @@ def forget_all( frames: list[ Frame ] ) -> None:
 
     return
 
+def update() -> None:
+    top_frame: Frame = Frame( modify_account_menu )
+    Button( top_frame, text='Back', font=( 'Imapct', 14, 'bold' ), command=lambda: () ).pack( side='left' )
+    Label( top_frame, text='Update account', font=( 'Imapct', 14, 'bold underline' ) ).pack()
+    Button( top_frame, text='Update', font=( 'Impact', 14, 'bold' ), command=lambda: () ).pack( side='right' )
+
+    #### TODO: Complete the update menu.
+
+    top_frame.pack()
+
+    modify_account_menu.pack()
+
 frames: list[ Frame ] = []
 
 def accounts() -> None:
@@ -89,7 +101,9 @@ def accounts() -> None:
             accounts()
         ) ).pack( side='left' )
 
-        Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: () ).pack( side='left' )
+        Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: (
+            update()
+        ) ).pack( side='left' )
         buttons_frame.pack( pady=5 )
 
         frames.append( frame )
