@@ -21,7 +21,7 @@ def hide_menus() -> None:
 
     return
 
-def login() -> None:
+def first_time_login() -> None:
     error_label: Label = Label( login_menu, text='Passkey should contain 6 or more characters.', font=( 'Impact', 16, 'bold italic underline' ), fg='red' )
     warning_label: Label = Label( login_menu, text='This is the passkey that you will use to login every time to the password manager.\nNOTE: please keep this code with you, or you will be locked out of the password manager!' )
     passkey_entry: Entry = Entry( login_menu, width=30, font=( 'Impact', 14 ) )
@@ -61,7 +61,7 @@ def gui() -> None:
     passwd_gen_button: Button = Button( buttons_side, text='Password Generation', font=( 'Impact', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), passwd_gen_menu.pack() ) )
     passwd_gen_button.pack( pady=5 )
 
-    passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), login() if first_time() else passwd_manager_menu.pack() ) )
+    passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), first_time_login() if first_time() else passwd_manager_menu.pack() ) )
     passwd_manager_button.pack( pady=5 )
 
     # Password Generation menu
