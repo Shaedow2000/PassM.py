@@ -163,6 +163,8 @@ def gui() -> None:
         accounts()
    
     # Add account menu
+    label_empty_error: Label = Label( add_account_menu, text='All labels should contain a value !', font=( 'Impact', 16, 'bold italic underline' ), fg='red' )
+
     app_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
     name_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
     passwd_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
@@ -186,7 +188,7 @@ def gui() -> None:
     Button( add_account_menu, text='Add Account', font=( 'Impact', 14, 'bold' ), command=lambda: (
         ( new_account( app_entry.get(), name_entry.get(), passwd_entry.get() ),
         print( f'-> Added new { app_entry.get() } account.' ),
-        empty_entries( app_entry, name_entry, passwd_entry ) ) if not is_entry_empty( app_entry, name_entry, passwd_entry ) else ...
+        empty_entries( app_entry, name_entry, passwd_entry ) ) if not is_entry_empty( app_entry, name_entry, passwd_entry ) else label_empty_error.pack( pady=10 ) 
     ) ).pack()
 
     # Start gui
