@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk 
 import os, pyperclip
 
-from methods import is_int, read_json, write_json, write_passkey, first_time, check_passkey
+from methods import clear, is_int, read_json, write_json, write_passkey, first_time, check_passkey
 from passwd_gen import gen_passwd
 
 window: Tk = Tk()
@@ -65,6 +65,12 @@ def access() -> None:
 
     return
 
+def forget_all( frames: list[ Frame ] ) -> None:
+    for i in range( len( frames ) ):
+        frames[ i ].pack_forget()
+
+    return
+
 def accounts() -> None:
     frames: list[ Frame ] = []
 
@@ -79,7 +85,10 @@ def accounts() -> None:
         buttons_frame: Frame = Frame( frame )
         Button( buttons_frame, text='Remove', font=( 'Impact', 12, 'bold' ), command=lambda index = i: (
             data[ 'data' ].pop( index ),
-            write_json( data )
+            write_json( data ),
+            forget_all( frames ),
+            frames.clear(),
+            accounts()
         ) ).pack( side='left' )
 
         Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: () ).pack( side='left' )

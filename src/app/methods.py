@@ -28,7 +28,7 @@ file_path: str = os.path.join( dir, 'assets', file_name )
 def read_json() -> dict:
     if not os.path.exists( file_path ):
         with open( file_path, 'w' ) as file:
-            json.dump( { 'first-time': True, 'key': '', 'decKey': '', 'data': '' }, file )
+            json.dump( { 'first-time': True, 'key': '', 'decKey': '', 'data': [] }, file )
 
     data: dict = {}
 
