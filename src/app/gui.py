@@ -173,7 +173,7 @@ def gui() -> None:
 
     Button( top_frame, text='Quit', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), access_menu.pack() ) ).pack( side='left', padx=5 )
     Label( top_frame, text='Password Manager:', font=( 'Imapct', 16, 'bold underline' ) ).pack( side='left', padx=5 )
-    Button( top_frame, text='Add', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), add_account_menu.pack() ) ).pack( side='left', padx=5 )
+    Button( top_frame, text='Add', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), add_account() ) ).pack( side='left', padx=5 )
 
     top_frame.pack( pady=10 )
 
