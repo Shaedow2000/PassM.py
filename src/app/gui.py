@@ -102,6 +102,7 @@ def accounts() -> None:
         ) ).pack( side='left' )
 
         Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: (
+            hide_menus(),
             update()
         ) ).pack( side='left' )
         buttons_frame.pack( pady=5 )
