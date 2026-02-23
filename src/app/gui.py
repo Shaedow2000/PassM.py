@@ -17,9 +17,6 @@ remove_account_menu: Frame = Frame( window )
 modify_account_menu: Frame = Frame( window )
 show_accounts_menu: Frame = Frame( window )
 
-test = Entry( passwd_manager_menu )
-test.pack()
-
 def hide_menus() -> None:
     passwd_gen_menu.pack_forget()
     passwd_manager_menu.pack_forget()
