@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from methods import clear, quit
+from passwd_gen import gen_passwd
 
 def main() -> None:
     clear()
@@ -9,7 +10,7 @@ def main() -> None:
         command: str = input( '>=> ' ).replace( ' ', '' ).lower()
 
         if command == 'g':
-            pass
+            print( gen_passwd() ) 
         elif command == 'c':
             clear()
         elif command == 'q':
