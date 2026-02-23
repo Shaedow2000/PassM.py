@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk 
 import os, pyperclip
 
-from methods import is_int, read_json, write_passkey, first_time, check_passkey
+from methods import is_int, read_json, write_json, write_passkey, first_time, check_passkey
 from passwd_gen import gen_passwd
 
 window: Tk = Tk()
@@ -75,8 +75,9 @@ def accounts() -> None:
         Label( frame, text=f'App: { data[ "data" ][ i ][ "app" ] }\nName: { data[ "data" ][ i ][ "name" ] }\nPassword: { data[ "data" ][ i ][ "passwd" ] }', font=( 'Impact', 14 ) ).pack()
         
         buttons_frame: Frame = Frame( frame )
-        Button( buttons_frame, text='Remove', font=( 'Impact', 12, 'bold' ), command=lambda: (
-            print( f'u pressed { i }: { data[ "data" ][ i ][ "app" ] }' )
+        Button( buttons_frame, text='Remove', font=( 'Impact', 12, 'bold' ), command=lambda index = i: (
+            data[ 'data' ].pop( index ),
+            write_json( data )
         ) ).pack( side='left' )
 
         Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: () ).pack( side='left' )
@@ -139,7 +140,7 @@ def gui() -> None:
     # Password manager menu
     top_frame: Frame = Frame( passwd_manager_menu )
 
-    Button( top_frame, text='Quit', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), access_menu.pack(), print( '-> Quit password manager.' ) ) ).pack( side='left', padx=5 )
+    Button( top_frame, text='Quit', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), access_menu.pack() ) ).pack( side='left', padx=5 )
     Label( top_frame, text='Password Manager:', font=( 'Imapct', 16, 'bold underline' ) ).pack( side='left', padx=5 )
     Button( top_frame, text='Add', font=( 'Impact', 12, 'bold' ), command=lambda: () ).pack( side='left', padx=5 )
 
