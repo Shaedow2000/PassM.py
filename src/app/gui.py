@@ -2,6 +2,9 @@ from tkinter import *
 from tkinter import ttk 
 import os
 
+from methods import is_int
+from passwd_gen import gen_passwd
+
 window: Tk = Tk()
 passwd_gen_menu: Frame = Frame( window )
 passwd_manager_menu: Frame = Frame( window )
@@ -37,18 +40,22 @@ def gui() -> None:
     passwd_manager_button.pack()
 
     # Password Generation menu 
-    lenght_label: Label = Label( passwd_gen_menu, text='Password Lenght:', font=( 'Imapct', 12 ) )
+    passwd_lenght_error: Label = Label( passwd_gen_menu, text='Lenght should be a number.', font=( 'Impact', 14, 'bold italic underline' ), fg='red' ) 
+    lenght_label: Label = Label( passwd_gen_menu, text='Password Lenght [ default=16 ]:', font=( 'Imapct', 12 ) )
     passwd_lenght: Entry = Entry( passwd_gen_menu, width=30, font=( 'Impact', 14 ) )
 
     use_label: Label = Label( passwd_gen_menu, text='Use only these chars:', font=( 'Impact', 12 ) )
 
     use_chars: ttk.Combobox = ttk.Combobox( passwd_gen_menu, values=[ 'All chars', 'Letters only', 'Digits only', 'Punctuation only' ] )
     use_chars.set( 'Select chars' )
+
+    generate: Button = Button( passwd_gen_menu, text='Generate password', font=( 'Impact', 14 ), command=lambda: ( print( gen_passwd( int( passwd_lenght.get().replace( ' ', '' ) ) , use_chars.get() ) ) if is_int( passwd_lenght.get().replace( ' ', '' ) ) else 16 if passwd_lenght.get() == '' else passwd_lenght_error.pack()) )
     
     lenght_label.pack()
     passwd_lenght.pack()
     use_label.pack()
     use_chars.pack()
+    generate.pack()
 
     # Start gui
     print( '=> Opened GUI...' )

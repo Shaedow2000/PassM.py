@@ -3,11 +3,11 @@ import string, random
 def gen_passwd( lenght: int, use_only: str ) -> str:
     chars: list[ str ] = []
 
-    if use_only == '1':
+    if use_only == 'Letters only':
         chars = [ *string.ascii_letters ]
-    elif use_only == '2':
+    elif use_only == 'Digits only':
         chars = [ *string.digits ]
-    elif use_only == '3':
+    elif use_only == 'Punctuation only':
         chars = [ *string.punctuation ]
     else:
         chars = [ *string.ascii_letters, *string.digits, *string.punctuation ]
