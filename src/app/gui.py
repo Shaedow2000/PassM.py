@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk 
 import os, pyperclip
 
-from methods import clear, is_int, read_json, write_json, write_passkey, first_time, check_passkey
+from methods import clear, is_int, new_account, read_json, write_json, write_passkey, first_time, check_passkey
 from passwd_gen import gen_passwd
 
 window: Tk = Tk()
@@ -99,7 +99,10 @@ def add_account() -> None:
     name_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
     passwd_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
 
-    Button( add_account_menu, text='Add Account', font=( 'Impact', 14, 'bold' ), command=lambda: () ).pack()
+    Button( add_account_menu, text='Add Account', font=( 'Impact', 14, 'bold' ), command=lambda: (
+        new_account( app_entry.get(), name_entry.get(), passwd_entry.get() ),
+        print( f'-> Added new { app_entry.get() } account.' )
+    ) ).pack()
 
     Label( add_account_menu, text='App name:', font=( 'Impact', 12 ) ).pack()
     app_entry.pack()
