@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk 
 import os, pyperclip
 
-from methods import clear, empty_entries, is_int, new_account, read_json, write_json, write_passkey, first_time, check_passkey
+from methods import empty_entries, is_int, new_account, read_json, write_json, write_passkey, first_time, check_passkey
 from passwd_gen import gen_passwd
 
 window: Tk = Tk()
