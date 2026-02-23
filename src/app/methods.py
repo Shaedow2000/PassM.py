@@ -1,4 +1,4 @@
-import os, sys, json
+import os, sys, json, bcrypt
 
 menu: str = '\tg: generate passwd | c: clear screen | q: quit or [ Ctrl + C ]'
 
@@ -46,7 +46,9 @@ def write_json( data: dict ) -> None:
 def write_passkey( key: str ) -> None:
     data: dict = read_json()
 
-    data[ 'key' ] = key
+    hashed_key = bcrypt.hashpw( key.encode(), bcrypt.gensalt() )
+
+    data[ 'key' ] = hashed_key.decode()
     data[ 'first-time' ] = False
 
     write_json( data )
