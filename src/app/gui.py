@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk 
 import os, pyperclip
 
-from methods import is_int, write_passkey, first_time
+from methods import is_int, write_passkey, first_time, check_passkey
 from passwd_gen import gen_passwd
 
 window: Tk = Tk()
@@ -10,6 +10,7 @@ passwd_gen_menu: Frame = Frame( window )
 passwd_manager_menu: Frame = Frame( window )
 
 login_menu: Frame = Frame( window )
+access_menu: Frame = Frame( window )
 
 test = Entry( passwd_manager_menu )
 test.pack()
@@ -38,6 +39,15 @@ def first_time_login() -> None:
     print( '-> You are not logged-in !' )
 
     return
+
+def access() -> None:
+    error_label: Label = Label( access_menu, text='Incorrect pass key.', font=( 'Imapct', 16, 'bold italic underline' ), fg='red' )
+    entry_label: Label = Label( access_menu, text='Enter pass key:', font=( 'Impact', 14 ) )
+    passkey_entry: Entry = Entry( access_menu, width=30, font=( 'Impact', 14 ) )
+    submit: Button = Button( access_menu, text='Access', font=( 'Impact', 14 ), command=lambda: (
+        ( passwd_manager_menu.pack(), hide_menus(), print( '-> Access granted !' ) ) if check_passkey( passkey_entry.get() ) else ( error_label.pack(), print( '-> Access denied: Incorrect pass key' ) )
+    ) )
+
 
 def gui() -> None:
     window.geometry( '950x800' )
