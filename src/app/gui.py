@@ -143,10 +143,10 @@ def gui() -> None:
     Button( top_frame, text='Quit', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), access_menu.pack(), print( '-> Quit password manager.' ) ) ).pack( side='left', padx=5 )
     Label( top_frame, text='Password Manager:', font=( 'Imapct', 16, 'bold underline' ) ).pack( side='left', padx=5 )
 
-    accounts()
-
     top_frame.pack( pady=10 )
 
+    accounts()
+    
     # Start gui
     print( '=> Opened GUI...' )
 
