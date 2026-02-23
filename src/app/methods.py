@@ -90,3 +90,6 @@ def empty_entries( *entries: Entry ) -> None:
         entries[ i ].delete( 0, END )
 
     return
+
+def is_entry_empty( entry: Entry ) -> bool:
+    return entry.get().replace( ' ', '' ) == ''
