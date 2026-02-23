@@ -13,9 +13,7 @@ login_menu: Frame = Frame( window )
 access_menu: Frame = Frame( window )
 
 add_account_menu: Frame = Frame( window )
-remove_account_menu: Frame = Frame( window )
 modify_account_menu: Frame = Frame( window )
-show_accounts_menu: Frame = Frame( window )
 
 def hide_menus() -> None:
     passwd_gen_menu.pack_forget()
@@ -25,9 +23,7 @@ def hide_menus() -> None:
     access_menu.pack_forget()
 
     add_account_menu.pack_forget()
-    remove_account_menu.pack_forget()
     modify_account_menu.pack_forget()
-    show_accounts_menu.pack_forget()
 
     return
 
@@ -155,7 +151,7 @@ def gui() -> None:
 
     Button( top_frame, text='Quit', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), access_menu.pack() ) ).pack( side='left', padx=5 )
     Label( top_frame, text='Password Manager:', font=( 'Imapct', 16, 'bold underline' ) ).pack( side='left', padx=5 )
-    Button( top_frame, text='Add', font=( 'Impact', 12, 'bold' ), command=lambda: () ).pack( side='left', padx=5 )
+    Button( top_frame, text='Add', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), add_account_menu.pack() ) ).pack( side='left', padx=5 )
 
     top_frame.pack( pady=10 )
 
