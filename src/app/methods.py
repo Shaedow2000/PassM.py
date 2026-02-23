@@ -1,4 +1,5 @@
 import os, sys, json, bcrypt
+from tkinter import END, Entry
 
 menu: str = '\tg: generate passwd | c: clear screen | q: quit or [ Ctrl + C ]'
 
@@ -81,5 +82,11 @@ def new_account( app: str, name: str, passwd: str ) -> None:
     data[ 'data' ].append( new_acc )
 
     write_json( data )
+
+    return
+
+def empty_entries( *entries: Entry ) -> None:
+    for i in range( len( entries ) ):
+        entries[ i ].delete( 0, END )
 
     return
