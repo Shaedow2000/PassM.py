@@ -99,6 +99,15 @@ def add_account() -> None:
     name_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
     passwd_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
 
+    top_frame: Frame = Frame( add_account_menu )
+    Button( top_frame, text='Back', font=( 'Impact', 14, 'bold' ), command=lambda: (
+        hide_menus(),
+        passwd_manager_menu.pack() 
+    ) ).pack( side='left' )
+    Label( top_frame, text='Add account', font=( 'Imapct', 16, 'bold' ) ).pack()
+
+    top_frame.pack( fill='x' )
+
     Label( add_account_menu, text='App name:', font=( 'Impact', 12 ) ).pack()
     app_entry.pack()
     Label( add_account_menu, text='Your name:', font=( 'Impact', 12 ) ).pack()
