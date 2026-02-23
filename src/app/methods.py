@@ -47,6 +47,7 @@ def write_passkey( key: str ) -> None:
     data: dict = read_json()
 
     data[ 'key' ] = key
+    data[ 'first-time' ] = False
 
     write_json( data )
     
