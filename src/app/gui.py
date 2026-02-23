@@ -28,6 +28,10 @@ def gui() -> None:
 
     window.iconphoto( True, icon )
 
+    # logo
+    logo_label: Label = Label( window, text='PassM', font=( 'Impact', 22, 'bold italic underline' ), fg='white', bg='darkblue', relief='flat', bd=20 )
+    logo_label.pack( fill='x' )
+
     # buttons side
     buttons_side: Frame = Frame( window )
     buttons_side.pack( fill='y', side='left' )
