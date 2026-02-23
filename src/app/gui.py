@@ -66,6 +66,8 @@ def access() -> None:
     return
 
 def accounts() -> None:
+    frames: list[ Frame ] = []
+
     data: dict = read_json()
 
     for i in range( len( data[ 'data' ] ) ):
@@ -82,6 +84,8 @@ def accounts() -> None:
 
         Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: () ).pack( side='left' )
         buttons_frame.pack( pady=5 )
+
+        frames.append( frame )
 
     return
 
