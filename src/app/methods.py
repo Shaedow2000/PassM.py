@@ -85,6 +85,13 @@ def new_account( app: str, name: str, passwd: str ) -> None:
 
     return
 
+def duplicate_account( new_acc: dict, data: dict ) -> bool:
+    if new_acc[ 'app' ] == data[ 'app' ] and new_acc[ 'name' ] == data[ 'name' ] and new_acc[ 'passwd' ] == data[ 'passwd' ]:
+        print( '-> Duplicate account: This account alread exists in your data base.' )
+        return True
+    else:
+        return False
+
 def empty_entries( *entries: Entry ) -> None:
     for i in range( len( entries ) ):
         entries[ i ].delete( 0, END )
