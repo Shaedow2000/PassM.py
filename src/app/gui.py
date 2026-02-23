@@ -21,6 +21,17 @@ def hide_menus() -> None:
 
     return
 
+def login() -> None:
+    warning_label: Label = Label( login_menu, text='This is the passkey that you will use to login every time to the password manager.\nNOTE: please keep this code with you, or you will be locked out of the password manager!' )
+    passkey_entry: Entry = Entry( login_menu, width=30, font=( 'Impact', 14 ) )
+    submit: Button = Button( login_menu, text='LogIn', font=( 'Impact', 14 ), command=lambda: ( ... ) )
+
+    warning_label.pack()
+    passkey_entry.pack( pady=10 )
+    submit.pack()
+
+    return
+
 def gui() -> None:
     window.geometry( '950x800' )
     window.title( 'PassM' )
