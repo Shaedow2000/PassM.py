@@ -71,7 +71,7 @@ def check_passkey( key: str ) -> bool:
     return bcrypt.checkpw( key.encode(), stored_key )
 
 def duplicate_account( new_acc: dict, data: dict ) -> bool:
-    if new_acc[ 'app' ] == data[ 'app' ] and new_acc[ 'name' ] == data[ 'name' ] and new_acc[ 'passwd' ] == data[ 'passwd' ]:
+    if new_acc[ 'app' ] == data[ 'app' ] and new_acc[ 'name' ] == data[ 'name' ]:
         print( '-> Duplicate account: This account alread exists in your data base.' )
         return True
     else:
