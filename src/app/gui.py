@@ -19,6 +19,7 @@ def hide_menus() -> None:
     passwd_gen_menu.pack_forget()
     passwd_manager_menu.pack_forget()
     login_menu.pack_forget()
+    access_menu.pack_forget()
 
     return
 
