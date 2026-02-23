@@ -84,7 +84,7 @@ def new_account( app: str, name: str, passwd: str ) -> None:
     data: dict = read_json()
 
     new_acc: dict = {
-        'app': app,
+        'app': app.capitalize(),
         'name': name,
         'passwd': passwd
     }
