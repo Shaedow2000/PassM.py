@@ -12,14 +12,14 @@ menu: str = '\tg: generate passwd | c: clear screen | q: quit or [ Ctrl + C ]'
 #
 # def quit() -> None:
 #     sys.exit( '\n!> Quiting program...' )
-#
-# def is_int( n: str ) -> bool:
-#     try:
-#         int( n )
-#
-#         return True
-#     except ValueError:
-#         return False
+
+def is_int( n: str ) -> bool:
+    try:
+        int( n )
+
+        return True
+    except ValueError:
+        return False
 
 # data file path
 dir: str = os.path.dirname( __file__ )
