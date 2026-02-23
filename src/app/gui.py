@@ -94,6 +94,25 @@ def accounts() -> None:
 
     return
 
+def add_account() -> None:
+    app_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
+    name_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
+    passwd_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
+
+    Button( add_account_menu, text='Add Account', font=( 'Impact', 14, 'bold' ), command=lambda: () ).pack()
+
+    Label( add_account_menu, text='App name:', font=( 'Impact', 12 ) ).pack()
+    app_entry.pack()
+    Label( add_account_menu, text='Your name:', font=( 'Impact', 12 ) ).pack()
+    name_entry.pack()
+    Label( add_account_menu, text='Password:', font=( 'Imapct', 12 ) ).pack()
+    passwd_entry.pack()
+
+    add_account_menu.pack()
+
+    return
+
+
 def gui() -> None:
     window.geometry( '950x800' )
     window.title( 'PassM' )
