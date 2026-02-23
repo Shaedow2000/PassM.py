@@ -175,6 +175,7 @@ def gui() -> None:
     Button( top_frame, text='Back', font=( 'Impact', 14, 'bold' ), command=lambda: (
         hide_menus(),
         passwd_manager_menu.pack(),
+        forget_all( frames ),
         accounts()
     ) ).pack( side='left' )
     Label( top_frame, text='Add account', font=( 'Imapct', 16, 'bold' ) ).pack()
