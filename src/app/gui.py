@@ -67,8 +67,10 @@ def forget_all( frames: list[ Frame ] ) -> None:
 
     return
 
+frames: list[ Frame ] = []
+
 def accounts() -> None:
-    frames: list[ Frame ] = []
+    global frames
 
     data: dict = read_json()
 
@@ -172,7 +174,8 @@ def gui() -> None:
     top_frame: Frame = Frame( add_account_menu )
     Button( top_frame, text='Back', font=( 'Impact', 14, 'bold' ), command=lambda: (
         hide_menus(),
-        passwd_manager_menu.pack() 
+        passwd_manager_menu.pack(),
+        accounts()
     ) ).pack( side='left' )
     Label( top_frame, text='Add account', font=( 'Imapct', 16, 'bold' ) ).pack()
 
