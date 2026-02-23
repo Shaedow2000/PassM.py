@@ -86,9 +86,9 @@ def new_account( app: str, name: str, passwd: str ) -> None:
         'passwd': passwd
     }
 
-    data[ 'data' ].append( new_acc )
-
-    write_json( data )
+    if not duplicate_account( new_acc, data[ 'data' ] ):
+        data[ 'data' ].append( new_acc )
+        write_json( data )
 
     return
 
