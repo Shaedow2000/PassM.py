@@ -71,7 +71,7 @@ def accounts() -> None:
     data: dict = read_json()
 
     for i in range( len( data[ 'data' ] ) ):
-        frame: Frame = Frame( passwd_manager_menu )
+        frame: Frame = Frame( passwd_manager_menu, relief=RAISED, bd=3 )
         frame.pack( pady=5 )
 
         Label( frame, text=f'App: { data[ "data" ][ i ][ "app" ] }\nName: { data[ "data" ][ i ][ "name" ] }\nPassword: { data[ "data" ][ i ][ "passwd" ] }', font=( 'Impact', 14 ) ).pack()
