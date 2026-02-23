@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk 
 import os, pyperclip
 
-from methods import is_int, write_passkey
+from methods import is_int, write_passkey, first_time
 from passwd_gen import gen_passwd
 
 window: Tk = Tk()
@@ -31,6 +31,9 @@ def login() -> None:
     passkey_entry.pack( pady=10 )
     submit.pack()
 
+    login_menu.pack()
+    print( '-> Not logged in !!!!' )
+
     return
 
 def gui() -> None:
@@ -55,7 +58,7 @@ def gui() -> None:
     passwd_gen_button: Button = Button( buttons_side, text='Password Generation', font=( 'Impact', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), passwd_gen_menu.pack() ) )
     passwd_gen_button.pack( pady=5 )
 
-    passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), passwd_manager_menu.pack() ) )
+    passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), login() if first_time() else passwd_manager_menu.pack() ) )
     passwd_manager_button.pack( pady=5 )
 
     # Password Generation menu
