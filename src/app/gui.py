@@ -140,7 +140,7 @@ def gui() -> None:
     # Password manager menu
     top_frame: Frame = Frame( passwd_manager_menu )
 
-    Button( top_frame, text='Quit', font=( 'Impact', 12, 'bold' ), command=lambda: () ).pack( side='left', padx=5 )
+    Button( top_frame, text='Quit', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), access_menu.pack(), print( '-> Quit password manager.' ) ) ).pack( side='left', padx=5 )
     Label( top_frame, text='Password Manager:', font=( 'Imapct', 16, 'bold underline' ) ).pack( side='left', padx=5 )
 
     accounts()
