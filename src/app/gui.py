@@ -69,7 +69,12 @@ def forget_all( frames: list[ Frame ] ) -> None:
 
 def update() -> None:
     top_frame: Frame = Frame( modify_account_menu )
-    Button( top_frame, text='Back', font=( 'Imapct', 14, 'bold' ), command=lambda: () ).pack( side='left', padx=5 )
+    Button( top_frame, text='Back', font=( 'Imapct', 14, 'bold' ), command=lambda: (
+        hide_menus(),
+        passwd_manager_menu.pack(),
+        forget_all( frames ),
+        accounts()
+    ) ).pack( side='left', padx=5 )
     Label( top_frame, text='Update account:', font=( 'Imapct', 14, 'bold underline' ) ).pack( side='left', padx=5 )
     Button( top_frame, text='Update', font=( 'Impact', 14, 'bold' ), command=lambda: () ).pack( side='right', padx=5 )
 
