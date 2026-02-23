@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from methods import clear, quit
+from methods import clear, quit, is_int
 from passwd_gen import gen_passwd
 
 def main() -> None:
@@ -10,7 +10,12 @@ def main() -> None:
         command: str = input( '>=> ' ).replace( ' ', '' ).lower()
 
         if command == 'g':
-            print( gen_passwd() ) 
+            lenght: str = input( '--> Enter lenght of the password: ' )
+
+            if is_int( lenght ):
+                print( gen_passwd( int( lenght ) ) )
+            else:
+                print( f'!> Value { lenght } is not a number.' )
         elif command == 'c':
             clear()
         elif command == 'q':
