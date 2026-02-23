@@ -1,0 +1,7 @@
+[project]
+name = 'CLI-password-gen.py'
+version = '0.0.1'
+requires-python = '>=3.14.2'
+
+[project.scripts]
+passgen = 'app.main:main'
