@@ -8,7 +8,7 @@ def clear() -> None:
     return
 
 def quit() -> None:
-    sys.exit( '\n|=> Quiting program...' )
+    sys.exit( '\n!> Quiting program...' )
 
 def main() -> None:
     menu: str = '\tg: generate passwd | c: clear screen | q: quit or [ Ctrl + C ]'
@@ -17,6 +17,15 @@ def main() -> None:
 
     while True:
         command: str = input( '>=> ' ).replace( ' ', '' ).lower()
+
+        if command == 'g':
+            pass
+        elif command == 'c':
+            clear()
+        elif command == 'q':
+            quit()
+        else:
+            print( f'!> Command not found: [ { command } ].' )
 
 if __name__ == '__main__':
     try:
