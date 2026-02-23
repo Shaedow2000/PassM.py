@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk 
 import os, pyperclip
 
-from methods import is_int, write_passkey, first_time, check_passkey
+from methods import is_int, read_json, write_passkey, first_time, check_passkey
 from passwd_gen import gen_passwd
 
 window: Tk = Tk()
@@ -12,14 +12,25 @@ passwd_manager_menu: Frame = Frame( window )
 login_menu: Frame = Frame( window )
 access_menu: Frame = Frame( window )
 
+add_account_menu: Frame = Frame( window )
+remove_account_menu: Frame = Frame( window )
+modify_account_menu: Frame = Frame( window )
+show_accounts_menu: Frame = Frame( window )
+
 test = Entry( passwd_manager_menu )
 test.pack()
 
 def hide_menus() -> None:
     passwd_gen_menu.pack_forget()
     passwd_manager_menu.pack_forget()
+    
     login_menu.pack_forget()
     access_menu.pack_forget()
+
+    add_account_menu.pack_forget()
+    remove_account_menu.pack_forget()
+    modify_account_menu.pack_forget()
+    show_accounts_menu.pack_forget()
 
     return
 
@@ -57,6 +68,25 @@ def access() -> None:
 
     return
 
+def accounts() -> None:
+    frames: list[ Frame ] = []
+
+    data: dict = read_json()
+
+    for i in range( len( data[ 'data' ] ) ):
+        frame: Frame = Frame( passwd_manager_menu )
+        frame.pack( pady=5 )
+
+        Label( frame, text=f'App: { data[ "data" ][ i ][ "app" ] }\nName: { data[ "data" ][ i ][ "name" ] }\nPassword: { data[ "data" ][ i ][ "passwd" ] }', font=( 'Impact', 14 ) ).pack()
+        
+        buttons_frame: Frame = Frame( frame )
+        Button( buttons_frame, text='Remove', font=( 'Impact', 12, 'bold' ), command=lambda: () ).pack( side='left' )
+        Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: () ).pack( side='left' )
+        buttons_frame.pack( pady=5 )
+
+        frames.append( frame )
+
+    return
 
 def gui() -> None:
     window.geometry( '950x800' )
@@ -100,7 +130,7 @@ def gui() -> None:
     copy: Button = Button( passwd_gen_menu, text='Copy', font=( 'Impact', 14 ), command=lambda: ( pyperclip.copy( passwd.get() ) ) )
 
     generate: Button = Button( passwd_gen_menu, text='Generate password', font=( 'Impact', 14 ), command=lambda: ( passwd.set( value=gen_passwd( int( passwd_lenght.get().replace( ' ', '' ) ) if passwd_lenght.get().replace( ' ', '' ) != '' else 16, use_chars.get() ) ) if is_int( passwd_lenght.get().replace( ' ', '' ) ) or passwd_lenght.get().replace( ' ', '' ) == '' else passwd_lenght_error.pack() ) )
-    
+
     lenght_label.pack()
     passwd_lenght.pack( pady=10 )
     use_label.pack()
