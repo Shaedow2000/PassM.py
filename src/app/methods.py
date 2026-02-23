@@ -91,5 +91,9 @@ def empty_entries( *entries: Entry ) -> None:
 
     return
 
-def is_entry_empty( entry: Entry ) -> bool:
-    return entry.get().replace( ' ', '' ) == ''
+def is_entry_empty( *entry: Entry ) -> bool:
+    for i in range( len( entry ) ):
+        if entry[ i ].get().replace( ' ', '' ) == '':
+            return True
+
+    return False

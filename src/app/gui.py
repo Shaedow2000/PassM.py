@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk 
 import os, pyperclip
 
-from methods import empty_entries, is_int, new_account, read_json, write_json, write_passkey, first_time, check_passkey
+from methods import empty_entries, is_entry_empty, is_int, new_account, read_json, write_json, write_passkey, first_time, check_passkey
 from passwd_gen import gen_passwd
 
 window: Tk = Tk()
@@ -184,9 +184,9 @@ def gui() -> None:
     passwd_entry.pack()
 
     Button( add_account_menu, text='Add Account', font=( 'Impact', 14, 'bold' ), command=lambda: (
-        new_account( app_entry.get(), name_entry.get(), passwd_entry.get() ),
+        ( new_account( app_entry.get(), name_entry.get(), passwd_entry.get() ),
         print( f'-> Added new { app_entry.get() } account.' ),
-        empty_entries( app_entry, name_entry, passwd_entry )
+        empty_entries( app_entry, name_entry, passwd_entry ) ) if not is_entry_empty( app_entry, name_entry, passwd_entry ) else ...
     ) ).pack()
 
     # Start gui
