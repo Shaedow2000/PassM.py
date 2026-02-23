@@ -2,7 +2,6 @@ from tkinter import *
 import os
 
 window: Tk = Tk()
-home_menu: Frame = Frame( window )
 passwd_gen_menu: Frame = Frame( window )
 passwd_manager_menu: Frame = Frame( window )
 
@@ -15,7 +14,16 @@ def gui() -> None:
 
     window.iconphoto( True, icon )
 
-    # Main menu
+    # buttons side
+    buttons_side: Frame = Frame( window )
+    buttons_side.pack( fill='y', side='left' )
+
+    # buttons
+    passwd_gen_button: Button = Button( buttons_side, text='Password Generation', font=( 'Impact', 16, 'bold' ), width=25, command=lambda: passwd_gen_menu.pack() )
+    passwd_gen_button.pack()
+
+    passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: passwd_manager_menu.pack() )
+    passwd_manager_button.pack()
 
     print( '=> Opened GUI...' )
 
