@@ -70,6 +70,13 @@ def check_passkey( key: str ) -> bool:
 
     return bcrypt.checkpw( key.encode(), stored_key )
 
+def duplicate_account( new_acc: dict, data: dict ) -> bool:
+    if new_acc[ 'app' ] == data[ 'app' ] and new_acc[ 'name' ] == data[ 'name' ] and new_acc[ 'passwd' ] == data[ 'passwd' ]:
+        print( '-> Duplicate account: This account alread exists in your data base.' )
+        return True
+    else:
+        return False
+
 def new_account( app: str, name: str, passwd: str ) -> None:
     data: dict = read_json()
 
@@ -84,13 +91,6 @@ def new_account( app: str, name: str, passwd: str ) -> None:
     write_json( data )
 
     return
-
-def duplicate_account( new_acc: dict, data: dict ) -> bool:
-    if new_acc[ 'app' ] == data[ 'app' ] and new_acc[ 'name' ] == data[ 'name' ] and new_acc[ 'passwd' ] == data[ 'passwd' ]:
-        print( '-> Duplicate account: This account alread exists in your data base.' )
-        return True
-    else:
-        return False
 
 def empty_entries( *entries: Entry ) -> None:
     for i in range( len( entries ) ):
