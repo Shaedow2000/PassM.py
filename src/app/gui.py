@@ -186,9 +186,12 @@ def gui() -> None:
     passwd_entry.pack()
 
     Button( add_account_menu, text='Add Account', font=( 'Impact', 14, 'bold' ), command=lambda: (
-        ( new_account( app_entry.get(), name_entry.get(), passwd_entry.get() ),
-        print( f'-> Added new { app_entry.get() } account.' ),
-        empty_entries( app_entry, name_entry, passwd_entry ) ) if not is_entry_empty( app_entry, name_entry, passwd_entry ) else label_empty_error.pack( pady=10 ) 
+        ( 
+            label_empty_error.pack_forget(),
+            new_account( app_entry.get(), name_entry.get(), passwd_entry.get() ),
+            print( f'-> Added new { app_entry.get() } account.' ),
+            empty_entries( app_entry, name_entry, passwd_entry ) 
+        ) if not is_entry_empty( app_entry, name_entry, passwd_entry ) else label_empty_error.pack( pady=10 ) 
     ) ).pack()
 
     # Start gui
