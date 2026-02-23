@@ -74,7 +74,7 @@ def duplicate_account( new_acc: dict, data: dict ) -> bool:
     for i in range( len( data ) ):
         account: dict = data[ i ]
     
-        if new_acc[ 'app' ] == account[ 'app' ] and new_acc[ 'name' ] == account[ 'name' ]:
+        if new_acc[ 'app' ].lower() == account[ 'app' ].lower() and new_acc[ 'name' ] == account[ 'name' ]:
             print( '-> Duplicate account: This account alread exists in your data base.' )
             return True
 
