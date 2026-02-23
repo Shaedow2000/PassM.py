@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk 
 import os, pyperclip
 
-from methods import is_int
+from methods import is_int, write_passkey
 from passwd_gen import gen_passwd
 
 window: Tk = Tk()
@@ -22,9 +22,10 @@ def hide_menus() -> None:
     return
 
 def login() -> None:
+    error_label: Label = Label( login_menu, text='Passkey should contain 6 or more characters.', font=( 'Impact', 16, 'bold italic underline' ) )
     warning_label: Label = Label( login_menu, text='This is the passkey that you will use to login every time to the password manager.\nNOTE: please keep this code with you, or you will be locked out of the password manager!' )
     passkey_entry: Entry = Entry( login_menu, width=30, font=( 'Impact', 14 ) )
-    submit: Button = Button( login_menu, text='LogIn', font=( 'Impact', 14 ), command=lambda: ( ... ) )
+    submit: Button = Button( login_menu, text='LogIn', font=( 'Impact', 14 ), command=lambda: ( write_passkey( passkey_entry.get() ) if len( passkey_entry.get() ) >= 6 else error_label.pack( pady=5 ) ) )
 
     warning_label.pack()
     passkey_entry.pack( pady=10 )
