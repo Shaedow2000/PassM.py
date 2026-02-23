@@ -93,7 +93,7 @@ def new_account( app: str, name: str, passwd: str ) -> None:
         data[ 'data' ].append( new_acc )
         write_json( data )
 
-        print( f'-> Added new { app_entry.get() } account.' )
+        print( f'-> Added new { new_acc[ "app" ] } account.' )
 
     return
 
