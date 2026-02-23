@@ -9,12 +9,15 @@ window: Tk = Tk()
 passwd_gen_menu: Frame = Frame( window )
 passwd_manager_menu: Frame = Frame( window )
 
+login_menu: Frame = Frame( window )
+
 test = Entry( passwd_manager_menu )
 test.pack()
 
 def hide_menus() -> None:
     passwd_gen_menu.pack_forget()
     passwd_manager_menu.pack_forget()
+    login_menu.pack_forget()
 
     return
 
