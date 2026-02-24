@@ -67,7 +67,7 @@ def forget_all( frames: list[ Frame ] ) -> None:
 
     return
 
-def update() -> None:
+def update( entry_index: int ) -> None:
     top_frame: Frame = Frame( modify_account_menu )
     Button( top_frame, text='Back', font=( 'Imapct', 14, 'bold' ), command=lambda: (
         hide_menus(),
@@ -81,6 +81,12 @@ def update() -> None:
     app_entry : Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
     name_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
     passwd_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Imapct', 14 ) )
+
+    data: list = read_json()[ 'data' ]
+
+    app_entry.insert( 0, data[ entry_index ][ 'app' ] )
+    name_entry.insert( 0, data[ entry_index ][ 'name' ] )
+    passwd_entry.insert( 0, data[ entry_index ][ 'passwd' ] )
 
     top_frame.pack()
 
@@ -114,7 +120,7 @@ def accounts() -> None:
 
         Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: (
             hide_menus(),
-            update()
+            update( 0 )
         ) ).pack( side='left' )
         buttons_frame.pack( pady=5 )
 
