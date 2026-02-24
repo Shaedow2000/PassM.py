@@ -78,9 +78,15 @@ def update() -> None:
     Label( top_frame, text='Update account:', font=( 'Imapct', 14, 'bold underline' ) ).pack( side='left', padx=5 )
     Button( top_frame, text='Update', font=( 'Impact', 14, 'bold' ), command=lambda: () ).pack( side='right', padx=5 )
 
-    #### TODO: Complete the update menu.
+    app_entry : Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
+    name_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
+    passwd_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Imapct', 14 ) )
 
     top_frame.pack()
+
+    app_entry.pack( pady=5 )
+    name_entry.pack( pady=5 )
+    passwd_entry.pack( pady=5 )
 
     modify_account_menu.pack()
 
