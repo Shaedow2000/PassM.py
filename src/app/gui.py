@@ -67,9 +67,6 @@ def forget_all( frames: list[ Frame ] ) -> None:
 
     return
 
-def update( entry_index: int ) -> None:
-    pass 
-
 frames: list[ Frame ] = []
 
 def accounts() -> None:
@@ -94,8 +91,7 @@ def accounts() -> None:
 
         Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: (
             hide_menus(),
-            modify_account_menu.pack(),
-            update( 0 )
+            modify_account_menu.pack()
         ) ).pack( side='left' )
         buttons_frame.pack( pady=5 )
 
@@ -112,6 +108,9 @@ def gui() -> None:
     icon = PhotoImage( file=icon_path )
 
     window.iconphoto( True, icon )
+
+    # Data 
+    data: dict = read_json()
 
     # logo
     logo_label: Label = Label( window, text='PassM', font=( 'Impact', 22, 'bold italic underline' ), fg='white', bg='darkblue', relief='flat', bd=20 )
@@ -164,8 +163,6 @@ def gui() -> None:
 
     top_frame.pack( pady=10 )
 
-    data: dict = read_json()
-
     if len( data[ 'data' ] ) == 0:
         Label( passwd_manager_menu, text='No Data Found D:', font=( 'Impact', 15, 'bold italic' ) ).pack()
     else:
@@ -206,6 +203,11 @@ def gui() -> None:
 
     # Update account menu
     top_frame: Frame = Frame( modify_account_menu )
+
+    # TODO: make the entries take a variable value...
+    entry_index: int = 0
+    # change this value to a variable one...
+
     Button( top_frame, text='Back', font=( 'Imapct', 14, 'bold' ), command=lambda: (
         hide_menus(),
         passwd_manager_menu.pack(),
@@ -219,11 +221,9 @@ def gui() -> None:
     name_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
     passwd_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Imapct', 14 ) )
 
-    data: list = read_json()[ 'data' ]
-
-    app_entry.insert( 0, data[ entry_index ][ 'app' ] )
-    name_entry.insert( 0, data[ entry_index ][ 'name' ] )
-    passwd_entry.insert( 0, data[ entry_index ][ 'passwd' ] )
+    app_entry.insert( 0, data[ 'data' ][ entry_index ][ 'app' ] )
+    name_entry.insert( 0, data[ 'data' ][ entry_index ][ 'name' ] )
+    passwd_entry.insert( 0, data[ 'data' ][ entry_index ][ 'passwd' ] )
 
     top_frame.pack()
 
