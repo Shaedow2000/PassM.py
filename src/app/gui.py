@@ -68,33 +68,7 @@ def forget_all( frames: list[ Frame ] ) -> None:
     return
 
 def update( entry_index: int ) -> None:
-    top_frame: Frame = Frame( modify_account_menu )
-    Button( top_frame, text='Back', font=( 'Imapct', 14, 'bold' ), command=lambda: (
-        hide_menus(),
-        passwd_manager_menu.pack(),
-        forget_all( frames ),
-        accounts()
-    ) ).pack( side='left', padx=5 )
-    Label( top_frame, text='Update account:', font=( 'Imapct', 14, 'bold underline' ) ).pack( side='left', padx=5 )
-    Button( top_frame, text='Update', font=( 'Impact', 14, 'bold' ), command=lambda: () ).pack( side='right', padx=5 )
-
-    app_entry : Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
-    name_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
-    passwd_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Imapct', 14 ) )
-
-    data: list = read_json()[ 'data' ]
-
-    app_entry.insert( 0, data[ entry_index ][ 'app' ] )
-    name_entry.insert( 0, data[ entry_index ][ 'name' ] )
-    passwd_entry.insert( 0, data[ entry_index ][ 'passwd' ] )
-
-    top_frame.pack()
-
-    app_entry.pack( pady=5 )
-    name_entry.pack( pady=5 )
-    passwd_entry.pack( pady=5 )
-
-    modify_account_menu.pack()
+    pass 
 
 frames: list[ Frame ] = []
 
@@ -120,6 +94,7 @@ def accounts() -> None:
 
         Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: (
             hide_menus(),
+            modify_account_menu.pack(),
             update( 0 )
         ) ).pack( side='left' )
         buttons_frame.pack( pady=5 )
@@ -228,6 +203,33 @@ def gui() -> None:
             empty_entries( app_entry, name_entry, passwd_entry ) 
         ) if not is_entry_empty( app_entry, name_entry, passwd_entry ) else label_empty_error.pack( pady=10 ) 
     ) ).pack()
+
+    # Update account menu
+    top_frame: Frame = Frame( modify_account_menu )
+    Button( top_frame, text='Back', font=( 'Imapct', 14, 'bold' ), command=lambda: (
+        hide_menus(),
+        passwd_manager_menu.pack(),
+        forget_all( frames ),
+        accounts()
+    ) ).pack( side='left', padx=5 )
+    Label( top_frame, text='Update account:', font=( 'Imapct', 14, 'bold underline' ) ).pack( side='left', padx=5 )
+    Button( top_frame, text='Update', font=( 'Impact', 14, 'bold' ), command=lambda: () ).pack( side='right', padx=5 )
+
+    app_entry : Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
+    name_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
+    passwd_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Imapct', 14 ) )
+
+    data: list = read_json()[ 'data' ]
+
+    app_entry.insert( 0, data[ entry_index ][ 'app' ] )
+    name_entry.insert( 0, data[ entry_index ][ 'name' ] )
+    passwd_entry.insert( 0, data[ entry_index ][ 'passwd' ] )
+
+    top_frame.pack()
+
+    app_entry.pack( pady=5 )
+    name_entry.pack( pady=5 )
+    passwd_entry.pack( pady=5 )
 
     # Start gui
     print( '=> Opened GUI...' )
