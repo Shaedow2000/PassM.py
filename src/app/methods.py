@@ -14,6 +14,38 @@ menu: str = '\tg: generate passwd | c: clear screen | q: quit or [ Ctrl + C ]'
 # def quit() -> None:
 #     sys.exit( '\n!> Quiting program...' )
 
+class DecString:
+    def __init__( self, str_key: str ) -> None:
+        self.str_key = str_key 
+
+    def encrypt( self ) -> None:
+        decString: str = ''.join( random.choices( string.ascii_letters + string.digits + string.punctuation, k=22 ) )
+
+        key = base64.urlsafe_b64encode( hashlib.sha256( self.str_key.encode() ).digest() )
+
+        fernet: Fernet = Fernet( key )
+        encDecString: bytes = fernet.encrypt( decString.encode() )
+
+        data: dict = read_json()
+        data[ 'decKey' ] = encDecString.decode()
+
+        write_json( data )
+
+        return
+
+    def decrypt( self ) -> str:
+        data: dict = read_json()
+
+        key = base64.urlsafe_b64encode( hashlib.sha256( self.str_key.encode() ).digest() )
+
+        fernet: Fernet = Fernet( key )
+
+        encDecString: bytes = data[ 'decKey' ].encode()
+
+        DecString: bytes = fernet.decrypt( encDecString )
+
+        return DecString.decode() 
+
 def is_int( n: str ) -> bool:
     try:
         int( n )
@@ -56,34 +88,6 @@ def write_passkey( key: str ) -> None:
     write_json( data )
     
     return
-
-def encrypt_decString( str_key: str ) -> None:
-    decString: str = ''.join( random.choices( string.ascii_letters + string.digits + string.punctuation, k=22 ) )
-
-    key = base64.urlsafe_b64encode( hashlib.sha256( str_key.encode() ).digest() )
-
-    fernet: Fernet = Fernet( key )
-    encDecString: bytes = fernet.encrypt( decString.encode() )
-
-    data: dict = read_json()
-    data[ 'decKey' ] = encDecString.decode()
-
-    write_json( data )
-
-    return
-
-def decrypt_decString( str_key: str ) -> str:
-    data: dict = read_json()
-
-    key = base64.urlsafe_b64encode( hashlib.sha256( str_key.encode() ).digest() )
-
-    fernet: Fernet = Fernet( key )
-
-    encDecString: bytes = data[ 'decKey' ].encode()
-
-    DecString: bytes = fernet.decrypt( encDecString )
-
-    return DecString.decode() 
 
 def first_time() -> bool:
     data: dict = read_json()

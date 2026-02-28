@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk 
 import os, pyperclip
 
-from methods import decrypt_decString, empty_entries, encrypt_decString, is_entry_empty, is_int, new_account, read_json, write_json, write_passkey, first_time, check_passkey
+from methods import DecString, empty_entries, is_entry_empty, is_int, new_account, read_json, write_json, write_passkey, first_time, check_passkey
 from passwd_gen import gen_passwd
 
 window: Tk = Tk()
@@ -38,8 +38,7 @@ def first_time_login() -> None:
     passkey_entry: Entry = Entry( login_menu, width=30, font=( 'Impact', 14 ) )
     submit: Button = Button( login_menu, text='LogIn', font=( 'Impact', 14 ), command=lambda: ( 
         write_passkey( passkey_entry.get() ) if len( passkey_entry.get() ) >= 6 else error_label.pack( pady=5 ),
-        encrypt_decString( passkey_entry.get() ),
-        ( hide_menus(), passwd_manager_menu.pack(), print( '-> Logged-in successfully !' ) ) if not first_time() else print( '-> Try again !' )
+        ( hide_menus(), passwd_manager_menu.pack(), print( '-> Logged-in successfully !' ), DecString( passkey_entry.get() ).encrypt() ) if not first_time() else print( '-> Try again !' )
     ) )
 
     warning_label.pack()
