@@ -257,6 +257,8 @@ def gui() -> None:
         hide_menus(),
         passwd_manager_menu.pack(),
         forget_all( frames ),
+        label_empty_error2.pack_forget(),
+        updated_label.pack_forget(),
         accounts()
     ) ).pack( side='left', padx=5 )
     Label( top_frame, text='Update account:', font=( 'Imapct', 14, 'bold underline' ) ).pack( side='left', padx=5 )
