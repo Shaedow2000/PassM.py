@@ -72,6 +72,8 @@ frames: list[ Frame ] = []
 def accounts() -> None:
     global frames
 
+    frames.clear()
+
     data: dict = read_json()
 
     for i in range( len( data[ 'data' ] ) ):
@@ -208,7 +210,7 @@ def gui() -> None:
     entry_index: int = 0
     # change this value to a variable one...
 
-    Button( top_frame, text='Back', font=( 'Imapct', 14, 'bold' ), command=lambda: (
+    Button( top_frame, text='Back', font=( 'Impact', 14, 'bold' ), command=lambda: (
         hide_menus(),
         passwd_manager_menu.pack(),
         forget_all( frames ),
