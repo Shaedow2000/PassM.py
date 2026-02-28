@@ -15,6 +15,11 @@ access_menu: Frame = Frame( window )
 add_account_menu: Frame = Frame( window )
 modify_account_menu: Frame = Frame( window )
 
+# Update menu enetries
+app_entry : Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
+name_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
+passwd_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Imapct', 14 ) )
+
 def hide_menus() -> None:
     passwd_gen_menu.pack_forget()
     passwd_manager_menu.pack_forget()
@@ -69,8 +74,22 @@ def forget_all( frames: list[ Frame ] ) -> None:
 
 frames: list[ Frame ] = []
 
+def insert_data( index: int ) -> None:
+    data: dict = read_json()
+
+    app_entry.insert( 0, data[ 'data' ][ index ][ 'app' ] )
+    name_entry.insert( 0, data[ 'data' ][ index ][ 'name' ] )
+    passwd_entry.insert( 0, data[ 'data' ][ index ][ 'passwd' ] )
+
+    app_entry.pack( pady=5 )
+    name_entry.pack( pady=5 )
+    passwd_entry.pack( pady=5 )
+
+    return
+
 def accounts() -> None:
     global frames
+    global entry_index
 
     frames.clear()
 
@@ -91,8 +110,9 @@ def accounts() -> None:
             accounts()
         ) ).pack( side='left' )
 
-        Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: (
+        Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda index = i: (
             hide_menus(),
+            insert_data( index ),
             modify_account_menu.pack()
         ) ).pack( side='left' )
         buttons_frame.pack( pady=5 )
@@ -206,10 +226,6 @@ def gui() -> None:
     # Update account menu
     top_frame: Frame = Frame( modify_account_menu )
 
-    # TODO: make the entries take a variable value...
-    entry_index: int = 0
-    # change this value to a variable one...
-
     Button( top_frame, text='Back', font=( 'Impact', 14, 'bold' ), command=lambda: (
         hide_menus(),
         passwd_manager_menu.pack(),
@@ -219,19 +235,9 @@ def gui() -> None:
     Label( top_frame, text='Update account:', font=( 'Imapct', 14, 'bold underline' ) ).pack( side='left', padx=5 )
     Button( top_frame, text='Update', font=( 'Impact', 14, 'bold' ), command=lambda: () ).pack( side='right', padx=5 )
 
-    app_entry : Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
-    name_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
-    passwd_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Imapct', 14 ) )
-
-    app_entry.insert( 0, data[ 'data' ][ entry_index ][ 'app' ] )
-    name_entry.insert( 0, data[ 'data' ][ entry_index ][ 'name' ] )
-    passwd_entry.insert( 0, data[ 'data' ][ entry_index ][ 'passwd' ] )
-
     top_frame.pack()
 
-    app_entry.pack( pady=5 )
-    name_entry.pack( pady=5 )
-    passwd_entry.pack( pady=5 )
+    
 
     # Start gui
     print( '=> Opened GUI...' )
