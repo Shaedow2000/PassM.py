@@ -16,9 +16,9 @@ add_account_menu: Frame = Frame( window )
 modify_account_menu: Frame = Frame( window )
 
 # Update menu enetries
-app_entry : Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
-name_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
-passwd_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Imapct', 14 ) )
+update_app_entry : Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
+update_name_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
+update_passwd_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Imapct', 14 ) )
 
 def hide_menus() -> None:
     passwd_gen_menu.pack_forget()
@@ -77,17 +77,17 @@ frames: list[ Frame ] = []
 def insert_data( index: int ) -> None:
     data: dict = read_json()
 
-    app_entry.delete( 0, END )
-    name_entry.delete( 0, END )
-    passwd_entry.delete( 0, END )
+    update_app_entry.delete( 0, END )
+    update_name_entry.delete( 0, END )
+    update_passwd_entry.delete( 0, END )
 
-    app_entry.insert( 0, data[ 'data' ][ index ][ 'app' ] )
-    name_entry.insert( 0, data[ 'data' ][ index ][ 'name' ] )
-    passwd_entry.insert( 0, data[ 'data' ][ index ][ 'passwd' ] )
+    update_app_entry.insert( 0, data[ 'data' ][ index ][ 'app' ] )
+    update_name_entry.insert( 0, data[ 'data' ][ index ][ 'name' ] )
+    update_passwd_entry.insert( 0, data[ 'data' ][ index ][ 'passwd' ] )
 
-    app_entry.pack( pady=5 )
-    name_entry.pack( pady=5 )
-    passwd_entry.pack( pady=5 )
+    update_app_entry.pack( pady=5 )
+    update_name_entry.pack( pady=5 )
+    update_passwd_entry.pack( pady=5 )
 
     return
 
@@ -124,6 +124,9 @@ def accounts() -> None:
         frames.append( frame )
 
     return
+
+def update( app: str, name: str, passwd: str ) -> None:
+    pass
 
 def gui() -> None:
     window.geometry( '950x800' )
@@ -228,6 +231,9 @@ def gui() -> None:
     ) ).pack()
 
     # Update account menu
+    label_empty_error2: Label = Label( modify_account_menu, text='All labels should contain a value !', font=( 'Impact', 16, 'bold italic underline' ), fg='red' )
+    updated_label: Label = Label( modify_account_menu, text='Account updated !', font=( 'Impact', 16, 'bold italic underline' ), fg='green' )
+
     top_frame: Frame = Frame( modify_account_menu )
 
     Button( top_frame, text='Back', font=( 'Impact', 14, 'bold' ), command=lambda: (
@@ -237,11 +243,15 @@ def gui() -> None:
         accounts()
     ) ).pack( side='left', padx=5 )
     Label( top_frame, text='Update account:', font=( 'Imapct', 14, 'bold underline' ) ).pack( side='left', padx=5 )
-    Button( top_frame, text='Update', font=( 'Impact', 14, 'bold' ), command=lambda: () ).pack( side='right', padx=5 )
+    Button( top_frame, text='Update', font=( 'Impact', 14, 'bold' ), command=lambda: ( 
+        (
+            label_empty_error2.pack_forget(),
+            update( update_app_entry.get(), update_name_entry.get(), update_passwd_entry.get() ),
+            updated_label.pack()
+        ) if not is_entry_empty( update_app_entry, update_name_entry, update_passwd_entry ) else label_empty_error2.pack( pady=10 )
+    ) ).pack( side='right', padx=5 )
 
     top_frame.pack()
-
-    
 
     # Start gui
     print( '=> Opened GUI...' )
