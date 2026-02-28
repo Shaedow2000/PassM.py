@@ -77,6 +77,10 @@ frames: list[ Frame ] = []
 def insert_data( index: int ) -> None:
     data: dict = read_json()
 
+    app_entry.delete( 0, END )
+    name_entry.delete( 0, END )
+    passwd_entry.delete( 0, END )
+
     app_entry.insert( 0, data[ 'data' ][ index ][ 'app' ] )
     name_entry.insert( 0, data[ 'data' ][ index ][ 'name' ] )
     passwd_entry.insert( 0, data[ 'data' ][ index ][ 'passwd' ] )
