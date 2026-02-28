@@ -46,6 +46,16 @@ class DecString:
 
         return DecString.decode() 
 
+class DecData:
+    def __init__( self ) -> None:
+        pass
+
+    def encrypt( data: list | dict | str, key: bytes | str ) -> None:
+        return
+
+    def decrypt( key: bytes | str ) -> None:
+        return
+
 def is_int( n: str ) -> bool:
     try:
         int( n )
