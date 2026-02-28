@@ -248,7 +248,7 @@ def gui() -> None:
             label_empty_error2.pack_forget(),
             update( update_app_entry.get(), update_name_entry.get(), update_passwd_entry.get() ),
             updated_label.pack()
-        ) if not is_entry_empty( update_app_entry, update_name_entry, update_passwd_entry ) else label_empty_error2.pack( pady=10 )
+        ) if not is_entry_empty( update_app_entry, update_name_entry, update_passwd_entry ) else ( label_empty_error2.pack( pady=10 ), updated_label.pack_forget() )
     ) ).pack( side='right', padx=5 )
 
     top_frame.pack()
