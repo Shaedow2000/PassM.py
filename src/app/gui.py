@@ -135,7 +135,15 @@ def accounts() -> None:
     return
 
 def update( index: int, app: str, name: str, passwd: str ) -> None:
-    pass
+    data: dict = read_json()
+
+    data[ 'data' ][ index ][ 'app' ] = app
+    data[ 'data' ][ index ][ 'name' ] = name
+    data[ 'data' ][ index ][ 'passwd' ] = passwd
+
+    write_json( data )
+
+    return
 
 def gui() -> None:
     window.geometry( '950x800' )
