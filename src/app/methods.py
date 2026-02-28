@@ -72,7 +72,7 @@ def encrypt_decString( str_key: str ) -> None:
 
     return
 
-def decrypt_decString( str_key: str ) -> bytes:
+def decrypt_decString( str_key: str ) -> str:
     data: dict = read_json()
 
     key = base64.urlsafe_b64encode( hashlib.sha256( str_key.encode() ).digest() )
@@ -83,8 +83,7 @@ def decrypt_decString( str_key: str ) -> bytes:
 
     DecString: bytes = fernet.decrypt( encDecString )
 
-    return DecString
-
+    return DecString.decode() 
 
 def first_time() -> bool:
     data: dict = read_json()
