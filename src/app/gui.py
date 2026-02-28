@@ -91,6 +91,14 @@ def insert_data( index: int ) -> None:
 
     return
 
+acc_index: int = 0
+
+def account_index( index: int ) -> None:
+    global acc_index
+    acc_index = index
+
+    return
+
 def accounts() -> None:
     global frames
     global entry_index
@@ -117,6 +125,7 @@ def accounts() -> None:
         Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda index = i: (
             hide_menus(),
             insert_data( index ),
+            account_index( index ),
             modify_account_menu.pack()
         ) ).pack( side='left' )
         buttons_frame.pack( pady=5 )
@@ -125,7 +134,7 @@ def accounts() -> None:
 
     return
 
-def update( app: str, name: str, passwd: str ) -> None:
+def update( index: int, app: str, name: str, passwd: str ) -> None:
     pass
 
 def gui() -> None:
@@ -246,7 +255,7 @@ def gui() -> None:
     Button( top_frame, text='Update', font=( 'Impact', 14, 'bold' ), command=lambda: ( 
         (
             label_empty_error2.pack_forget(),
-            update( update_app_entry.get(), update_name_entry.get(), update_passwd_entry.get() ),
+            update( acc_index, update_app_entry.get(), update_name_entry.get(), update_passwd_entry.get() ),
             updated_label.pack()
         ) if not is_entry_empty( update_app_entry, update_name_entry, update_passwd_entry ) else ( label_empty_error2.pack( pady=10 ), updated_label.pack_forget() )
     ) ).pack( side='right', padx=5 )
