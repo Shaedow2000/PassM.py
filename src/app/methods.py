@@ -59,7 +59,7 @@ def write_passkey( key: str ) -> None:
 
 def encrypt_decString( str_key: str ) -> None:
     decString: str = ''.join( random.choices( string.ascii_letters + string.digits + string.punctuation, k=22 ) )
-    
+
     key = base64.urlsafe_b64encode( hashlib.sha256( str_key.encode() ).digest() )
 
     fernet: Fernet = Fernet( key )
@@ -71,6 +71,20 @@ def encrypt_decString( str_key: str ) -> None:
     write_json( data )
 
     return
+
+def decrypt_decString( str_key: str ) -> bytes:
+    data: dict = read_json()
+
+    key = base64.urlsafe_b64encode( hashlib.sha256( str_key.encode() ).digest() )
+
+    fernet: Fernet = Fernet( key )
+
+    encDecString: bytes = data[ 'decKey' ].encode()
+
+    DecString: bytes = fernet.decrypt( encDecString )
+
+    return DecString
+
 
 def first_time() -> bool:
     data: dict = read_json()
