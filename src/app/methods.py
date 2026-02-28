@@ -1,4 +1,5 @@
-import os, sys, json, bcrypt
+import os, sys, json, bcrypt, random, string, base64, hashlib
+from cryptography.fernet import Fernet
 from tkinter import END, Entry
 
 menu: str = '\tg: generate passwd | c: clear screen | q: quit or [ Ctrl + C ]'
@@ -54,6 +55,21 @@ def write_passkey( key: str ) -> None:
 
     write_json( data )
     
+    return
+
+def encrypt_decString( str_key: str ) -> None:
+    decString: str = ''.join( random.choices( string.ascii_letters + string.digits + string.punctuation, k=22 ) )
+    
+    key = base64.urlsafe_b64encode( hashlib.sha256( str_key.encode() ).digest() )
+
+    fernet: Fernet = Fernet( key )
+    encDecString: bytes = fernet.encrypt( decString.encode() )
+
+    data: dict = read_json()
+    data[ 'decKey' ] = encDecString.decode()
+
+    write_json( data )
+
     return
 
 def first_time() -> bool:
