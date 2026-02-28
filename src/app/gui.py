@@ -2,19 +2,102 @@ from tkinter import *
 from tkinter import ttk 
 import os, pyperclip
 
-from methods import is_int
+from methods import empty_entries, is_entry_empty, is_int, new_account, read_json, write_json, write_passkey, first_time, check_passkey
 from passwd_gen import gen_passwd
 
 window: Tk = Tk()
 passwd_gen_menu: Frame = Frame( window )
 passwd_manager_menu: Frame = Frame( window )
 
-test = Entry( passwd_manager_menu )
-test.pack()
+login_menu: Frame = Frame( window )
+access_menu: Frame = Frame( window )
+
+add_account_menu: Frame = Frame( window )
+modify_account_menu: Frame = Frame( window )
 
 def hide_menus() -> None:
     passwd_gen_menu.pack_forget()
     passwd_manager_menu.pack_forget()
+    
+    login_menu.pack_forget()
+    access_menu.pack_forget()
+
+    add_account_menu.pack_forget()
+    modify_account_menu.pack_forget()
+
+    return
+
+def first_time_login() -> None:
+    error_label: Label = Label( login_menu, text='Passkey should contain 6 or more characters.', font=( 'Impact', 16, 'bold italic underline' ), fg='red' )
+    warning_label: Label = Label( login_menu, text='This is the passkey that you will use to login every time to the password manager.\nNOTE: please keep this code with you, or you will be locked out of the password manager!' )
+    passkey_entry: Entry = Entry( login_menu, width=30, font=( 'Impact', 14 ) )
+    submit: Button = Button( login_menu, text='LogIn', font=( 'Impact', 14 ), command=lambda: ( 
+        write_passkey( passkey_entry.get() ) if len( passkey_entry.get() ) >= 6 else error_label.pack( pady=5 ),
+        ( hide_menus(), passwd_manager_menu.pack(), print( '-> Logged-in successfully !' ) ) if not first_time() else print( '-> Try again !' )
+    ) )
+
+    warning_label.pack()
+    passkey_entry.pack( pady=10 )
+    submit.pack()
+
+    login_menu.pack()
+    print( '-> You are not logged-in !' )
+
+    return
+
+def access() -> None:
+    error_label: Label = Label( access_menu, text='Incorrect pass key.', font=( 'Imapct', 16, 'bold italic underline' ), fg='red' )
+    entry_label: Label = Label( access_menu, text='Enter pass key:', font=( 'Impact', 14 ) )
+    passkey_entry: Entry = Entry( access_menu, width=30, font=( 'Impact', 14 ) )
+    submit: Button = Button( access_menu, text='Access', font=( 'Impact', 14 ), command=lambda: (
+        ( hide_menus(), passwd_manager_menu.pack(), print( '-> Access granted !' ), passkey_entry.delete( 0, END ) ) if check_passkey( passkey_entry.get() ) else ( error_label.pack(), print( '-> Access denied: Incorrect pass key' ) )
+    ) )
+
+    entry_label.pack()
+    passkey_entry.pack( pady=10 )
+    submit.pack()
+
+    access_menu.pack()
+
+    return
+
+def forget_all( frames: list[ Frame ] ) -> None:
+    for i in range( len( frames ) ):
+        frames[ i ].pack_forget()
+
+    return
+
+frames: list[ Frame ] = []
+
+def accounts() -> None:
+    global frames
+
+    frames.clear()
+
+    data: dict = read_json()
+
+    for i in range( len( data[ 'data' ] ) ):
+        frame: Frame = Frame( passwd_manager_menu, relief=RAISED, bd=3 )
+        frame.pack( pady=5 )
+
+        Label( frame, text=f'App: { data[ "data" ][ i ][ "app" ] }\nName: { data[ "data" ][ i ][ "name" ] }\nPassword: { data[ "data" ][ i ][ "passwd" ] }', font=( 'Impact', 14 ) ).pack()
+        
+        buttons_frame: Frame = Frame( frame )
+        Button( buttons_frame, text='Remove', font=( 'Impact', 12, 'bold' ), command=lambda index = i: (
+            data[ 'data' ].pop( index ),
+            write_json( data ),
+            forget_all( frames ),
+            frames.clear(),
+            accounts()
+        ) ).pack( side='left' )
+
+        Button( buttons_frame, text='Update', font=( 'Imapct', 12, 'bold' ), command=lambda: (
+            hide_menus(),
+            modify_account_menu.pack()
+        ) ).pack( side='left' )
+        buttons_frame.pack( pady=5 )
+
+        frames.append( frame )
 
     return
 
@@ -27,6 +110,9 @@ def gui() -> None:
     icon = PhotoImage( file=icon_path )
 
     window.iconphoto( True, icon )
+
+    # Data 
+    data: dict = read_json()
 
     # logo
     logo_label: Label = Label( window, text='PassM', font=( 'Impact', 22, 'bold italic underline' ), fg='white', bg='darkblue', relief='flat', bd=20 )
@@ -41,6 +127,7 @@ def gui() -> None:
     passwd_gen_button.pack( pady=5 )
 
     passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), passwd_manager_menu.pack() ) )
+    passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), first_time_login() if first_time() else access() ) )
     passwd_manager_button.pack( pady=5 )
 
     # Password Generation menu
@@ -60,7 +147,6 @@ def gui() -> None:
     copy: Button = Button( passwd_gen_menu, text='Copy', font=( 'Impact', 14 ), command=lambda: ( pyperclip.copy( passwd.get() ) ) )
 
     generate: Button = Button( passwd_gen_menu, text='Generate password', font=( 'Impact', 14 ), command=lambda: ( passwd.set( value=gen_passwd( int( passwd_lenght.get().replace( ' ', '' ) ) if passwd_lenght.get().replace( ' ', '' ) != '' else 16, use_chars.get() ) ) if is_int( passwd_lenght.get().replace( ' ', '' ) ) or passwd_lenght.get().replace( ' ', '' ) == '' else passwd_lenght_error.pack() ) )
-    
     lenght_label.pack()
     passwd_lenght.pack( pady=10 )
     use_label.pack()
@@ -69,6 +155,83 @@ def gui() -> None:
 
     passwd_label.pack( pady=25 )
     copy.pack()
+
+    # Password manager menu
+    top_frame: Frame = Frame( passwd_manager_menu )
+
+    Button( top_frame, text='Quit', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), access_menu.pack() ) ).pack( side='left', padx=5 )
+    Label( top_frame, text='Password Manager:', font=( 'Imapct', 16, 'bold underline' ) ).pack( side='left', padx=5 )
+    Button( top_frame, text='Add', font=( 'Impact', 12, 'bold' ), command=lambda: ( hide_menus(), add_account_menu.pack() ) ).pack( side='left', padx=5 )
+
+    top_frame.pack( pady=10 )
+
+    if len( data[ 'data' ] ) == 0:
+        Label( passwd_manager_menu, text='No Data Found D:', font=( 'Impact', 15, 'bold italic' ) ).pack()
+    else:
+        accounts()
+   
+    # Add account menu
+    label_empty_error: Label = Label( add_account_menu, text='All labels should contain a value !', font=( 'Impact', 16, 'bold italic underline' ), fg='red' )
+
+    app_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
+    name_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
+    passwd_entry: Entry = Entry( add_account_menu, width=30, font=( 'Impact', 14 ) )
+
+    top_frame: Frame = Frame( add_account_menu )
+    Button( top_frame, text='Back', font=( 'Impact', 14, 'bold' ), command=lambda: (
+        hide_menus(),
+        passwd_manager_menu.pack(),
+        forget_all( frames ),
+        accounts()
+    ) ).pack( side='left' )
+    Label( top_frame, text='Add account', font=( 'Imapct', 16, 'bold' ) ).pack()
+
+    top_frame.pack( fill='x' )
+
+    Label( add_account_menu, text='App name:', font=( 'Impact', 12 ) ).pack()
+    app_entry.pack()
+    Label( add_account_menu, text='Your name:', font=( 'Impact', 12 ) ).pack()
+    name_entry.pack()
+    Label( add_account_menu, text='Password:', font=( 'Imapct', 12 ) ).pack()
+    passwd_entry.pack()
+
+    Button( add_account_menu, text='Add Account', font=( 'Impact', 14, 'bold' ), command=lambda: (
+        ( 
+            label_empty_error.pack_forget(),
+            new_account( app_entry.get(), name_entry.get(), passwd_entry.get() ),
+            empty_entries( app_entry, name_entry, passwd_entry ) 
+        ) if not is_entry_empty( app_entry, name_entry, passwd_entry ) else label_empty_error.pack( pady=10 ) 
+    ) ).pack()
+
+    # Update account menu
+    top_frame: Frame = Frame( modify_account_menu )
+
+    # TODO: make the entries take a variable value...
+    entry_index: int = 0
+    # change this value to a variable one...
+
+    Button( top_frame, text='Back', font=( 'Impact', 14, 'bold' ), command=lambda: (
+        hide_menus(),
+        passwd_manager_menu.pack(),
+        forget_all( frames ),
+        accounts()
+    ) ).pack( side='left', padx=5 )
+    Label( top_frame, text='Update account:', font=( 'Imapct', 14, 'bold underline' ) ).pack( side='left', padx=5 )
+    Button( top_frame, text='Update', font=( 'Impact', 14, 'bold' ), command=lambda: () ).pack( side='right', padx=5 )
+
+    app_entry : Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
+    name_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Impact', 14 ) )
+    passwd_entry: Entry = Entry( modify_account_menu, width=30, font=( 'Imapct', 14 ) )
+
+    app_entry.insert( 0, data[ 'data' ][ entry_index ][ 'app' ] )
+    name_entry.insert( 0, data[ 'data' ][ entry_index ][ 'name' ] )
+    passwd_entry.insert( 0, data[ 'data' ][ entry_index ][ 'passwd' ] )
+
+    top_frame.pack()
+
+    app_entry.pack( pady=5 )
+    name_entry.pack( pady=5 )
+    passwd_entry.pack( pady=5 )
 
     # Start gui
     print( '=> Opened GUI...' )

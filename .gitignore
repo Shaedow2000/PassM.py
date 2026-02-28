@@ -208,3 +208,6 @@ __marimo__/
 
 # Private data file 
 data.json
+
+# Git backup files.
+*.orig

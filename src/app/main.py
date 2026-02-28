@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 
-import pyperclip
-
-from methods import clear, quit, is_int
-from passwd_gen import gen_passwd 
 from gui import gui
 
 def main() -> None:
