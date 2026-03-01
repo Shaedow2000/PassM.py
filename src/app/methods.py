@@ -50,10 +50,10 @@ class DecData:
     def __init__( self, key: bytes ) -> None:
         self.fernet: Fernet = Fernet( key )
 
-    def encrypt( data: list | dict | str ) -> None:
+    def encrypt( self, data: list | dict | str ) -> None:
         return
 
-    def decrypt( data: str ) -> None:
+    def decrypt( self, data: str ) -> None:
         return
 
 def is_int( n: str ) -> bool:
