@@ -47,10 +47,12 @@ class DecString:
         return DecString.decode() 
 
 class DecData:
-    def __init__( self, key: bytes ) -> None:
+    def __init__( self, str_key: str ) -> None:
+        key = base64.urlsafe_b64encode( hashlib.sha256( str_key.encode() ).digest() )
+
         self.fernet: Fernet = Fernet( key )
 
-    def encrypt( self, data: list | dict | str ) -> None:
+    def encrypt( self, data: str ) -> None:
         return
 
     def decrypt( self, data: str ) -> None:
