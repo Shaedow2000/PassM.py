@@ -53,6 +53,13 @@ class DecData:
         self.fernet: Fernet = Fernet( key )
 
     def encrypt( self, data: str ) -> None:
+        encData: bytes = self.fernet.encrypt( str( data ).encode() )
+        
+        json_data: dict = read_json()
+        json_data[ 'data' ] = encData.decode()
+
+        write_json( json_data )
+
         return
 
     def decrypt( self, data: str ) -> None:
