@@ -62,8 +62,10 @@ class DecData:
 
         return
 
-    def decrypt( self, data: str ) -> None:
-        return
+    def decrypt( self, data: str ) -> dict:
+        decData: bytes = self.fernet.decrypt( data )
+
+        return json.loads( decData )
 
 def is_int( n: str ) -> bool:
     try:
