@@ -3,6 +3,7 @@ from cryptography.fernet import Fernet
 from tkinter import END, Entry
 
 menu: str = '\tg: generate passwd | c: clear screen | q: quit or [ Ctrl + C ]'
+passkey: str = ''
 
 # def clear() -> None:
 #     os.system( 'cls' if os.name == 'nt' else 'clear' )
@@ -163,3 +164,10 @@ def is_entry_empty( *entry: Entry ) -> bool:
             return True
 
     return False
+
+def save_passkey_str( passkey_str: str ) -> None:
+    global passkey
+
+    passkey = passkey_str
+
+    return
