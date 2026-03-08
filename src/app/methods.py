@@ -54,14 +54,17 @@ class DecData:
         self.fernet: Fernet = Fernet( key )
 
     def encrypt( self, data: dict | list | str ) -> str:
-        encData: bytes = self.fernet.encrypt( str( data ).encode() )
+        encData: bytes = self.fernet.encrypt( json.dumps( data ).encode() )
 
         return encData.decode() 
 
-    def decrypt( self, data: str ) -> dict:
+    def decrypt( self, data: bytes ) -> str:
+        if data == '':
+            return json.loads( "[]" )
+        
         decData: bytes = self.fernet.decrypt( data )
 
-        return json.loads( decData )
+        return decData.decode()
 
 decdata: DecData = DecData( passkey )
 
@@ -81,12 +84,14 @@ file_path: str = os.path.join( dir, 'assets', file_name )
 def read_json() -> dict:
     if not os.path.exists( file_path ):
         with open( file_path, 'w' ) as file:
-            json.dump( { 'first-time': True, 'key': '', 'decKey': '', 'data': [] }, file )
+            json.dump( { "first-time": True, "key": "", "decKey": "", "data": "" }, file )
 
     data: dict = {}
 
     with open( file_path, 'r' ) as file:
         data = json.load( file )
+
+    data[ 'data' ] = json.loads( decdata.decrypt( json.dumps( data[ 'data' ] ).encode() ).replace( "'", '"' ) )
 
     return data
 
