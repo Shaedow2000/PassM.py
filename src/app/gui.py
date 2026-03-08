@@ -110,6 +110,8 @@ def accounts() -> None:
 
         Label( frame, text=f'App: { data[ "data" ][ i ][ "app" ] }\nName: { data[ "data" ][ i ][ "name" ] }\nPassword: { data[ "data" ][ i ][ "passwd" ] }', font=( 'Impact', 14 ) ).pack()
         
+        password: str = data[ 'data' ][ i ][ 'passwd' ]
+
         buttons_frame: Frame = Frame( frame )
         Button( buttons_frame, text='Remove', font=( 'Impact', 12, 'bold' ), command=lambda index = i: (
             data[ 'data' ].pop( index ),
@@ -127,7 +129,7 @@ def accounts() -> None:
         ) ).pack( side='left' )
         buttons_frame.pack( pady=5 )
 
-        Button( buttons_frame, text='Copy passwd', font=( 'Impact', 12, 'bold' ), command=lambda: () )
+        Button( buttons_frame, text='Copy passwd', font=( 'Impact', 12, 'bold' ), command=lambda passwd = password: ( pyperclip.copy( passwd ) ) ).pack( side='left' )
 
         frames.append( frame )
 
