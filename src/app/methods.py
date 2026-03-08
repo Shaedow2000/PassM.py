@@ -53,13 +53,10 @@ class DecData:
 
         self.fernet: Fernet = Fernet( key )
 
-    def encrypt( self, data: dict ) -> dict:
-        encData: bytes = self.fernet.encrypt( str( data[ 'data' ] ).encode() )
-        
-        json_data: dict = read_json()
-        json_data[ 'data' ] = encData.decode()
+    def encrypt( self, data: dict | list | str ) -> str:
+        encData: bytes = self.fernet.encrypt( str( data ).encode() )
 
-        return json_data
+        return encData.decode() 
 
     def decrypt( self, data: str ) -> dict:
         decData: bytes = self.fernet.decrypt( data )
@@ -94,7 +91,7 @@ def read_json() -> dict:
     return data
 
 def write_json( data: dict ) -> None:
-    encdata: dict = decdata.encrypt( data[ 'data' ] )
+    encdata: str = decdata.encrypt( data[ 'data' ] )
     data[ 'data' ] = encdata
 
     with open( file_path, 'w' ) as file:
