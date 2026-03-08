@@ -91,7 +91,7 @@ def read_json() -> dict:
     with open( file_path, 'r' ) as file:
         data = json.load( file )
 
-    data[ 'data' ] = json.loads( decdata.decrypt( json.dumps( data[ 'data' ] ).encode() ).replace( "'", '"' ) )
+    data[ 'data' ] = json.loads( decdata.decrypt( data[ 'data' ].encode() ).replace( "'", '"' ) )
 
     return data
 
