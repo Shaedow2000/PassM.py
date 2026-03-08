@@ -36,6 +36,12 @@ Now, just execute the command and start the app:
 ```bash
 passm
 ```
+### +) Uninstall the program:
+If you want to uninstall the program, use:
+```bash
+pip uninstall PassM.py
+```
+
 ---
 > [!IMPORTANT]
 > If you use an operating system like *Arch Linux*, use the `--break-system-packages` tag in the end of the pip install commands.
