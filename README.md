@@ -19,7 +19,7 @@ git clone 'https://codeberg.org/Shaedow2000/PassM.py.git'
 ### 2) Change directories:
 Change the current direcotry to the root of the downloaded PassM folder:
 ```bash
-cd PassM
+cd PassM.py
 ```
 ### 3) Create executable command:
 Now to execute the app, create an executable command to start the app:
