@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from gui import gui
+from app.gui import gui
 
 def main() -> None:
     #### CLI version [ old ]
