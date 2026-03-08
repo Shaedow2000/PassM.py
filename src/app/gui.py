@@ -45,7 +45,6 @@ def first_time_login() -> None:
     passkey_entry.pack( pady=10 )
     submit.pack()
 
-    login_menu.pack()
     print( '-> You are not logged-in !' )
 
     return
@@ -61,8 +60,6 @@ def access() -> None:
     entry_label.pack()
     passkey_entry.pack( pady=10 )
     submit.pack()
-
-    access_menu.pack()
 
     return
 
@@ -146,6 +143,9 @@ def update( index: int, app: str, name: str, passwd: str ) -> None:
     return
 
 def gui() -> None:
+    # init access menu
+    access()
+
     window.geometry( '950x800' )
     window.title( 'PassM' )
 
@@ -171,7 +171,7 @@ def gui() -> None:
     passwd_gen_button.pack( pady=5 )
 
     passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), passwd_manager_menu.pack() ) )
-    passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), first_time_login() if first_time() else access() ) )
+    passwd_manager_button: Button = Button( buttons_side, text='Password Manager', font=( 'Imapct', 16, 'bold' ), width=25, command=lambda: ( hide_menus(), ( first_time_login(), login_menu.pack() ) if first_time() else access_menu.pack() ) )
     passwd_manager_button.pack( pady=5 )
 
     # Password Generation menu
