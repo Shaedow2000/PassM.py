@@ -53,20 +53,20 @@ class DecData:
 
         self.fernet: Fernet = Fernet( key )
 
-    def encrypt( self, data: str ) -> None:
+    def encrypt( self, data: str ) -> dict:
         encData: bytes = self.fernet.encrypt( str( data ).encode() )
         
         json_data: dict = read_json()
         json_data[ 'data' ] = encData.decode()
 
-        write_json( json_data )
-
-        return
+        return json_data
 
     def decrypt( self, data: str ) -> dict:
         decData: bytes = self.fernet.decrypt( data )
 
         return json.loads( decData )
+
+decdata: DecData = DecData( passkey )
 
 def is_int( n: str ) -> bool:
     try:
