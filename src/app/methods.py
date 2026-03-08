@@ -94,9 +94,11 @@ def read_json() -> dict:
     return data
 
 def write_json( data: dict ) -> None:
-    encdata: dict = decdata.encrypt( data )
+    encdata: dict = decdata.encrypt( data[ 'data' ] )
+    data[ 'data' ] = encdata
+
     with open( file_path, 'w' ) as file:
-        json.dump( encdata, file )
+        json.dump( data, file )
 
     return
 
