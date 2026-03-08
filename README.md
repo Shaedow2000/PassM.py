@@ -21,16 +21,25 @@ Change the current direcotry to the root of the downloaded PassM folder:
 ```bash
 cd PassM.py
 ```
-### 3) Create executable command:
+### 3) Install the requirements:
+Install all the required packages:
+```bash
+pip install -r requirements.txt
+```
+### 4) Create executable command:
 Now to execute the app, create an executable command to start the app:
 ```bash
 pip install -e .
 ```
-### 4) Execute the program:
+### 5) Execute the program:
 Now, just execute the command and start the app:
 ```bash
 passm
 ```
+---
+> [!IMPORTANT]
+> If you use an operating system like *Arch Linux*, use the `--break-system-packages` tag in the end of the pip install commands.
+---
 
 ## II-/ Contribution:
 All conributions to the program are WELCOME!! 🎉
