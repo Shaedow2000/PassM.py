@@ -6,7 +6,6 @@ pycparser==3.0
 pyperclip==1.11.0
 bcrypt==5.0.0
 cffi==2.0.0
--e git+https://github.com/Shaedow2000/PassM.py@8da7c4a331074442e4319c9c63cb87825be5486f#egg=CLI_password_gen.py
 cryptography==46.0.5
 pycparser==3.0
 pyperclip==1.11.0
