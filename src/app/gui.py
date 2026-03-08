@@ -127,6 +127,8 @@ def accounts() -> None:
         ) ).pack( side='left' )
         buttons_frame.pack( pady=5 )
 
+        Button( buttons_frame, text='Copy passwd', font=( 'Impact', 12, 'bold' ), command=lambda: () )
+
         frames.append( frame )
 
     return
